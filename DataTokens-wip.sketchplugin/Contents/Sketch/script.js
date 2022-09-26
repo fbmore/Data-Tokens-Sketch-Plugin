@@ -4,9 +4,6 @@ Mocha.sharedRuntime().loadFrameworkWithName('CoreFoundation');
 // Lets import the library that allows us to talk with the UI
 @import "MochaJSDelegate.js";
 
-// Lets import other functions
-@import "constraints.js";
-@import "functions.js";
 
 // Lets get a hold on the Sketch API
 const sketch = require('sketch')
