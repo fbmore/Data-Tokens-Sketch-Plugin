@@ -38,14 +38,14 @@ var currentKeyObjectIndex = -1;
 var savedFullSelectionIDs = [];
 var currentKeyObjectID = Settings.documentSettingForKey(document, 'currentKeyObjectID') || "";
 
-console.log("currentKeyObjectID: " + currentKeyObjectID)
+// console.log("currentKeyObjectID: " + currentKeyObjectID)
 
 
 var page;
 
 //the main function we run when we execute the plugin. It creates the webview and hooks
 function onRun(context) {
-  console.log("start: " + Date.now())
+  // console.log("start: " + Date.now())
 
   document = sketch.fromNative(context.document)
   page = document.selectedPage;
@@ -93,7 +93,7 @@ function onRun(context) {
       }
 
       var selectedLayerName = selectedLayers[0].name;
-      // console.log(selectedLayersNames.join(","))
+      // // console.log(selectedLayersNames.join(","))
       selectedLayersNames = selectedLayersNames.join(", ")
       // return selectedLayersNames;
 
@@ -102,30 +102,30 @@ function onRun(context) {
 
       /////// ON launching the plugin webview set the selection as Key Object automatically
 
-      console.log("saving selection as keyObject") 
+      // console.log("saving selection as keyObject") 
 
-      console.log(Settings.documentSettingForKey(document, 'savedFullSelectionIDsArray'));
+      // console.log(Settings.documentSettingForKey(document, 'savedFullSelectionIDsArray'));
       var arr  = Settings.documentSettingForKey(document, 'savedFullSelectionIDsArray') || [];
 
-      console.log("arr");
-      console.log(arr);
+      // console.log("arr");
+      // console.log(arr);
 
 
 
       if (document.selectedLayers){
         var selection = document.selectedLayers;      
         
-        console.log(selection.layers.length);
+        // console.log(selection.layers.length);
 
         Settings.setDocumentSettingForKey(document, 'savedFullSelection', selection.layers);
         Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
 
-        console.log("Doc: savedFullSelectionIDs")
+        // console.log("Doc: savedFullSelectionIDs")
         
         Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
         var savedFullSelectionIDs = Settings.documentSettingForKey(document, 'savedFullSelectionIDs');
         
-        console.log(savedFullSelectionIDs)
+        // console.log(savedFullSelectionIDs)
 
 
       }
@@ -148,12 +148,12 @@ function onRun(context) {
 
         var selection = document.selectedLayers;      
         
-        console.log(selection.layers.length);
+        // console.log(selection.layers.length);
 
         Settings.setDocumentSettingForKey(document, 'savedFullSelection', selection.layers);
         Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
 
-        console.log("Doc: savedFullSelectionIDs----")
+        // console.log("Doc: savedFullSelectionIDs----")
         
         Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
         savedFullSelectionIDs = Settings.documentSettingForKey(document, 'savedFullSelectionIDs');
@@ -161,13 +161,13 @@ function onRun(context) {
         layerKeyObject = document.getLayerWithID(savedFullSelectionIDs[0])
 
         
-        console.log(savedFullSelectionIDs)
+        // console.log(savedFullSelectionIDs)
         
       } else {
 
 
         savedFullSelectionIDs = Settings.documentSettingForKey(document, 'savedFullSelectionIDs');
-        console.log(savedFullSelectionIDs)
+        // console.log(savedFullSelectionIDs)
 
         currentKeyObjectID = savedFullSelectionIDs[0]
         // var arr  = Settings.documentSettingForKey(document, 'savedFullSelectionIDsArray') || [].push(currentKeyObjectID);
@@ -256,9 +256,9 @@ function onRun(context) {
 
           // read values from webview
           var myLayerX = hash.myLayerX.toLowerCase();
-          // console.log(myLayerX)
+          // // console.log(myLayerX)
           var myLayerY = hash.myLayerY.toLowerCase();
-          // console.log(myLayerY)
+          // // console.log(myLayerY)
           var myDirection = hash.direction.toLowerCase();
           
           /// value
@@ -267,7 +267,7 @@ function onRun(context) {
 
           myValue = decodeURI(myValue);
 
-          console.log("myValue: " + myValue)
+          // console.log("myValue: " + myValue)
 
           // if 
 
@@ -275,7 +275,7 @@ function onRun(context) {
 
           // myKey = decodeURI(myKey);
 
-          // console.log("myKey: " + myKey)
+          // // console.log("myKey: " + myKey)
 
 
           // var prop = h
@@ -285,19 +285,19 @@ function onRun(context) {
 
 
 
-          console.log("prop: " + prop)
+          // console.log("prop: " + prop)
 
           /// Center on Key Object
-          // console.log("centeronkeyobject?") 
+          // // console.log("centeronkeyobject?") 
           if (prop == "centeronkeyobject"){
-            console.log("centeronkeyobject") 
+            // console.log("centeronkeyobject") 
             
             // var savedFullSelectionIDs = Settings.documentSettingForKey(document, 'savedFullSelectionIDs');
             var currentKeyObjectID = Settings.documentSettingForKey(document, 'currentKeyObjectID');
 
             // var r = document.getLayerWithID(savedFullSelectionIDs[0]);
             var r = document.getLayerWithID(currentKeyObjectID);
-            console.log(r.name);
+            // console.log(r.name);
             document.selectedLayers = []
             r.selected = true;
         
@@ -312,19 +312,19 @@ function onRun(context) {
           if (prop == "setnextkeyobject"){
     
             currentKeyObjectID = Settings.documentSettingForKey(document, 'currentKeyObjectID');
-            console.log("currentKeyObjectID: " + currentKeyObjectID);
+            // console.log("currentKeyObjectID: " + currentKeyObjectID);
 
             Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDsHistory', arrHistory);
-            console.log("History After NEXT: " + arrHistory);
+            // console.log("History After NEXT: " + arrHistory);
 
-            console.log("loading prev keyobj from array:")  
-            console.log(arrHistory) 
-            // console.log("arrHistory[0]") 
-            // console.log(arrHistory[0].toString()) 
+            // console.log("loading prev keyobj from array:")  
+            // console.log(arrHistory) 
+            // // console.log("arrHistory[0]") 
+            // // console.log(arrHistory[0].toString()) 
 
             
             var currentKeyObjectIndex = arrHistory.indexOf(currentKeyObjectID);
-            console.log("currentKeyObjectID - Arr History: " + currentKeyObjectIndex);
+            // console.log("currentKeyObjectID - Arr History: " + currentKeyObjectIndex);
 
             if ((currentKeyObjectIndex + 1) == arrHistory.length){
               currentKeyObjectIndex = -1 
@@ -333,7 +333,7 @@ function onRun(context) {
 
             currentKeyObjectIndex = currentKeyObjectIndex + 1;
 
-            console.log("currentKeyObjectIndex: " + currentKeyObjectIndex);
+            // console.log("currentKeyObjectIndex: " + currentKeyObjectIndex);
 
             currentKeyObjectID = arrHistory[currentKeyObjectIndex]
 
@@ -347,13 +347,13 @@ function onRun(context) {
 
             currentKeyObjectID = Settings.documentSettingForKey(document, 'currentKeyObjectID');
  
-            // console.log("currentKeyObjectID: " + currentKeyObjectID);
+            // // console.log("currentKeyObjectID: " + currentKeyObjectID);
 
-            // console.log("layerKeyObject name: " + layerKeyObject.name) 
+            // // console.log("layerKeyObject name: " + layerKeyObject.name) 
 
             var newValue = getLayerAsSVG(layerKeyObject);
             
-            // console.log("layerKeyObject SVG: " + newValue) 
+            // // console.log("layerKeyObject SVG: " + newValue) 
 
             // var newValue = '<svg width="477px" height="111px" viewBox="0 0 477 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Artboard" transform="translate(-84.000000, -67.000000)" fill="#6236FF"><rect id="Rectangle-purple" x="84" y="67" width="477" height="111"></rect></g></g></svg>';              
 
@@ -366,7 +366,7 @@ function onRun(context) {
 
           if (hash.direction.toLowerCase() == "undo"){
             //MSUndoAction
-            // console.log("undo---")
+            // // console.log("undo---")
             // ui.message("💽: Undo! 👏 🚀");
 
             context.document.actionsController().actionForID("MSUndoAction").doPerformAction(null);
@@ -374,7 +374,7 @@ function onRun(context) {
           } 
           if (hash.direction.toLowerCase() == "redo"){
             //MSUndoAction
-            // console.log("redo---")
+            // // console.log("redo---")
             // ui.message("💽: Undo! 👏 🚀");
 
             context.document.actionsController().actionForID("MSRedoAction").doPerformAction(null);
@@ -386,24 +386,15 @@ function onRun(context) {
 
           if (prop == "copystring"){
 
-            console.log("copystring") 
-            
+            // console.log("copystring")      
             copyStringToClipboard(myValue)          
-            // var pasteboard = NSPasteboard.generalPasteboard();
-            // pasteboard.clearContents();
-            // var string = myValue;
-            // console.log(string)
-
-            // pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-            // ui.message("💽: Copied Token value to Clipboard: "+string+"! 👏 🚀");
-              
           }
 
           function copyStringToClipboard(string) {
-            console.log(string)
+            // console.log(string)
             var pasteboard = NSPasteboard.generalPasteboard();
             pasteboard.clearContents();
-            console.log(string)
+            // console.log(string)
             pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
             ui.message("💽: Copied Token value to Clipboard: '"+string+"'! 👏 🚀");
 
@@ -413,7 +404,7 @@ function onRun(context) {
 
           if (prop == "pasteallvaluestodoc"){
   
-            console.log("pasteallvaluestodoc") 
+            // console.log("pasteallvaluestodoc") 
             
             applyDataTokensTo(document)          
               
@@ -421,18 +412,18 @@ function onRun(context) {
           
           if (prop == "pasteallvaluestopage"){
   
-            console.log("pasteallvaluestopage") 
+            // console.log("pasteallvaluestopage") 
             
             applyDataTokensTo(selectedPage)          
               
           }
   
   
-          /// Function applyDataTokensToSelectedLayers
+          /// Function applyDataTokensTo
   
           function applyDataTokensTo(scope){
   
-            console.log("applyDataTokensToDoc")
+            // console.log("applyDataTokensToDoc")
   
             var allTextLayers = sketch.find('Text', scope)
               
@@ -444,7 +435,7 @@ function onRun(context) {
   
                 var layerNameBeforeChange = selectedLayer.name
                 
-                selectedLayer.text = myValue;
+                //selectedLayer.text = myValue;
                 var divider = "-----";
   
                 var localDataAsArray = myValue.split(divider)
@@ -457,12 +448,12 @@ function onRun(context) {
                 }
 
 
-              console.log("arrayDataToJSON.hasOwnProperty(layerNameBeforeChange)")
-              console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange))
+              // console.log("arrayDataToJSON.hasOwnProperty(layerNameBeforeChange)")
+              // console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange))
 
 
               if (arrayDataToJSON.hasOwnProperty(layerNameBeforeChange) === true){
-                console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange));
+                // console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange));
                 selectedLayer.text = arrayDataToJSON[layerNameBeforeChange];
                 selectedLayer.name = layerNameBeforeChange;  
               }
@@ -529,9 +520,9 @@ function onRun(context) {
               var rowHeightMultiplication = layout.rowHeightMultiplication();
               var totalWidth = layout.totalWidth()
 
-              // console.log(columnWidth)
-              // console.log(gutterWidth)
-              // console.log(guttersOutside)
+              // // console.log(columnWidth)
+              // // console.log(gutterWidth)
+              // // console.log(guttersOutside)
 
 
               // COLUMNS as values
@@ -543,7 +534,7 @@ function onRun(context) {
                 } else {
                   myLayerX = horizontalOffset + columnWidth * (myLayerX - 1) + gutterWidth * (myLayerX - 1);
                 }
-                // console.log("Cols:" + myLayerX)
+                // // console.log("Cols:" + myLayerX)
 
               }
 
@@ -555,7 +546,7 @@ function onRun(context) {
                 } else {
                   myLayerY = columnWidth * (myLayerY - 1) + gutterWidth * (myLayerY - 1);
                 }
-                // console.log("Cols:" + myLayerY)
+                // // console.log("Cols:" + myLayerY)
               }
 
             } 
@@ -564,21 +555,21 @@ function onRun(context) {
 
             if (prop == "setkeyobject"){
               
-              console.log("saving keyObject") 
+              // console.log("saving keyObject") 
 
 
               if (document.selectedLayers){
                 var selection = document.selectedLayers;
                 //var parent = selection.layers[0].parent;
                 
-                console.log(selection.layers.length);
+                // console.log(selection.layers.length);
 
                 
                 
                 Settings.setDocumentSettingForKey(document, 'savedFullSelection', selection.layers);
                 Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
 
-                console.log("Doc: savedFullSelectionIDs")
+                // console.log("Doc: savedFullSelectionIDs")
                 
                 Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDs', selection.map(layer => layer.id));
                 savedFullSelectionIDs = Settings.documentSettingForKey(document, 'savedFullSelectionIDs');
@@ -592,27 +583,27 @@ function onRun(context) {
 
                 currentKeyObjectID =  Settings.documentSettingForKey(document, 'currentKeyObjectID');
 
-                // console.log("currentKeyObjectID from set object: " + currentKeyObjectID)  
+                // // console.log("currentKeyObjectID from set object: " + currentKeyObjectID)  
 
 
                 Settings.setDocumentSettingForKey(document, 'savedFullSelectionIDsHistory', arrHistory);
-                // console.log("History After: " + arrHistory);
+                // // console.log("History After: " + arrHistory);
 
                 
 
-                // console.log("currentKeyObjectIndex: " + arrHistory.indexOf(currentKeyObjectID));
+                // // console.log("currentKeyObjectIndex: " + arrHistory.indexOf(currentKeyObjectID));
 
                 //Settings.setDocumentSettingForKey(document, 'currentKeyObjectIndex', currentKeyObjectIndex);
-                //console.log("currentKeyObjectIndex: " + currentKeyObjectIndex);
+                //// console.log("currentKeyObjectIndex: " + currentKeyObjectIndex);
 
                 currentKeyObjectID = Settings.documentSettingForKey(document, 'currentKeyObjectID');
 
 
                 Settings.setDocumentSettingForKey(document, 'currentKeyObjectID', currentKeyObjectID);
-                // console.log("currentKeyObjectID: " + currentKeyObjectID);
+                // // console.log("currentKeyObjectID: " + currentKeyObjectID);
 
-              // console.log("Add new key and get selectedLayersNames()")  
-              // console.log(selectedLayersNames())  
+              // // console.log("Add new key and get selectedLayersNames()")  
+              // // console.log(selectedLayersNames())  
               // var layerKeyObject = document.getLayerWithID(savedFullSelectionIDs[0])
               var layerKeyObject = document.getLayerWithID(currentKeyObjectID)
               // var layerName = layerKeyObject.name
@@ -651,19 +642,19 @@ function onRun(context) {
            /// Paste Everywhere 
 
            if (prop == "pasteeverywhere"){
-            console.log("pasteeverywhere") 
+            // console.log("pasteeverywhere") 
             
             if (layer) {
              
               var duplicatedLayer;
-              // console.log("duplicating...")
+              // // console.log("duplicating...")
               if (layer.type != "SymbolMaster"){
                 duplicatedLayer = layer.duplicate()              
               } else {
 
   
                 var symbolMaster = layer;
-                // console.log(symbolMaster)
+                // // console.log(symbolMaster)
                 var symbolInstance = symbolMaster.createNewInstance();
                 
                 duplicatedLayer = symbolInstance;
@@ -701,7 +692,7 @@ function onRun(context) {
            /// Paste and Replace 
 
            if (prop == "pastereplace"){
-            console.log("pastereplace") 
+            // console.log("pastereplace") 
             
             if (layer) {
              
@@ -713,7 +704,7 @@ function onRun(context) {
 
                 if (selectedLayer.id != syncWithLayer.id){
                   
-                  // console.log(selection.layers[l].name)
+                  // // console.log(selection.layers[l].name)
 
                   var newLayer = syncWithLayer.duplicate()
                   var tempIndex = selectedLayer.index
@@ -748,7 +739,7 @@ function onRun(context) {
             
             /// Paste Position 
             if (prop == "pasteposition"){
-            console.log("pasteposition") 
+            // console.log("pasteposition") 
             
             if (layer) {
               for (l = 0; l < selectedLayers.layers.length; ++l){
@@ -766,7 +757,7 @@ function onRun(context) {
             /// Paste Size 
 
            if (prop == "pastesize"){
-            console.log("pastesize") 
+            // console.log("pastesize") 
             
             if (layer) {
               for (l = 0; l < selectedLayers.layers.length; ++l){
@@ -781,7 +772,7 @@ function onRun(context) {
             /// Paste Resizing Properties 
 
            if (prop == "pasteresizing"){
-            console.log("pasteresizing") 
+            // console.log("pasteresizing") 
             
             if (layer) {
               for (l = 0; l < selectedLayers.layers.length; ++l){
@@ -799,7 +790,7 @@ function onRun(context) {
             /// Paste LAYOUT / WIP
 
           //  if (prop == "pastelayout"){
-          //   console.log("pastelayout") 
+          //   // console.log("pastelayout") 
 
           //   var selectedLayer = selectedLayers.layers[j];
             
@@ -815,14 +806,14 @@ function onRun(context) {
             // Paste all position, size and resizing properties
 
            if (prop == "pasteall"){
-            console.log("pasteall") 
+            // console.log("pasteall") 
             
             
             
             if (layer) {
               for (l = 0; l < selectedLayers.layers.length; ++l){
 
-              console.log("selectedLayers.layers")
+              // console.log("selectedLayers.layers")
               selectedLayers.layers[l].frame = layer.frame;
 
               layerResizingConstraint = layer.sketchObject.resizingConstraint();
@@ -837,7 +828,7 @@ function onRun(context) {
 
           if (prop == "pastecolor"){
 
-            console.log("pastecolor") 
+            // console.log("pastecolor") 
           
             if (layer) {
 
@@ -866,8 +857,8 @@ function onRun(context) {
                     allSymbols.layers[j].style.fills[0].color = setToColor;
                   }
                   if (allSymbols.layers[j].type === "Artboard"){
-                    // console.log("color")
-                    // console.log(setToColor)
+                    // // console.log("color")
+                    // // console.log(setToColor)
                     allSymbols.layers[j].background.color = setToColor;
                     allSymbols.layers[j].background.enabled = true;
                     allSymbols.layers[j].background.includedInExport = true;
@@ -889,7 +880,7 @@ function onRun(context) {
 
           if (prop == "pasteopacity"){
 
-            console.log("pasteopacity") 
+            // console.log("pasteopacity") 
           
             if (layer) {
 
@@ -917,7 +908,7 @@ function onRun(context) {
 
           if (prop == "pastefontfamily"){
 
-            console.log("pastefontfamily") 
+            // console.log("pastefontfamily") 
           
             if (layer) {
 
@@ -953,7 +944,7 @@ function onRun(context) {
 
           if (prop == "pastefontsize"){
 
-            console.log("pastefontsize") 
+            // console.log("pastefontsize") 
           
             if (layer) {
 
@@ -990,7 +981,7 @@ function onRun(context) {
 
          if (prop == "pasteallvalues"){
   
-          console.log("pasteallvalues") 
+          // console.log("pasteallvalues") 
           
           applyDataTokensToSelectedLayers(selectedLayers)          
             
@@ -1001,53 +992,103 @@ function onRun(context) {
 
         function applyDataTokensToSelectedLayers(selectedLayers){
 
-          console.log("1")
+          // console.log("1")
+          var allTextLayersFunction = [];
+
             
-          for (sl = 0; sl < selectedLayers.layers.length+1; ++sl) {            
+          for (sl = 0; sl < selectedLayers.length+1; ++sl) {            
           
 
-            console.log("2")
+            // console.log("2----")
+            // console.log(selectedLayers)
 
-            var selectedLayer = selectedLayers.layers[sl];
+            // var selectedLayer = selectedLayers[sl];
 
-            if (selectedLayer.type == "Text"){
+            /// FIND ALL TEXT LAYERS WITHIN SELECTION 
+                  
 
-              console.log("3")
-
-              var layerNameBeforeChange = selectedLayer.name
+            // selectedLayers.forEach((item) => {
+            //   items.push(sketch.find("Text",item))
+            //  })
+             
+            selectedLayers.forEach((item) => {
               
-              selectedLayer.text = myValue;
-              var divider = "-----";
+              if (item.type == "Text"){
+                allTextLayersFunction.push(item);
+              } else {
+                  var textLayersWithinSelectedItem = sketch.find("Text",item);
+                  textLayersWithinSelectedItem.forEach((textLayer) => {
+                    allTextLayersFunction.push(textLayer);
+                  });
+                }  
+            });
 
-              var localDataAsArray = myValue.split(divider)
-              var newarr = localDataAsArray.filter(function(a){return a !== ''})
-              var newarr2 = newarr.filter(function(a){return a !== ','})
 
-              var arrayDataToJSON = {};
-              for (i = 0; i < newarr2.length-1; i+=2) {
-                arrayDataToJSON[""+newarr2[i]+""] = newarr2[i+1];
-              }
+            // console.log("allTextLayersFunction.length")
+            // console.log(allTextLayersFunction.length)
+            // console.log("allTextLayersFunction")
+            // console.log(allTextLayersFunction)
 
-              console.log("arrayDataToJSON")
-              console.log(arrayDataToJSON)
+            //// Check code below to work w above
+
+            for (tf = 0; tf < allTextLayersFunction.length; tf++) { 
               
-              console.log("layerNameBeforeChange")
-              console.log(layerNameBeforeChange)
+              // var selectedLayer = item;
 
-              console.log("arrayDataToJSON.hasOwnProperty(layerNameBeforeChange)")
-              console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange).type)
+              // if (1){
 
-              if (arrayDataToJSON.hasOwnProperty(layerNameBeforeChange) === true){
-              if (arrayDataToJSON.hasOwnProperty(layerNameBeforeChange) !== undefined){
-                console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange));
-                selectedLayer.text = arrayDataToJSON[layerNameBeforeChange];
-                selectedLayer.name = layerNameBeforeChange;  
+                // console.log("3")
+                // console.log("item.name")
+                // console.log(allTextLayersFunction[tf].name)
+  
+                var layerNameBeforeChange = allTextLayersFunction[tf].name;
+                
+                // selectedLayer.text = myValue;
+                var divider = "-----";
+  
+                var localDataAsArray = myValue.split(divider)
+                var newarr = localDataAsArray.filter(function(a){return a !== ''})
+                var newarr2 = newarr.filter(function(a){return a !== ','})
+  
+                var arrayDataToJSON = {};
+                
+                for (i = 0; i < newarr2.length-1; i+=2) {
+                  arrayDataToJSON[""+newarr2[i]+""] = newarr2[i+1];
+                }
+  
+                // console.log("arrayDataToJSON")
+                // console.log(arrayDataToJSON)
+                
+                // console.log("layerNameBeforeChange")
+                // console.log(layerNameBeforeChange)
+  
+                // console.log("arrayDataToJSON.hasOwnProperty(layerNameBeforeChange)")
+                // console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange))
+  
+                if (arrayDataToJSON.hasOwnProperty(layerNameBeforeChange) == true){
+                  // console.log(arrayDataToJSON.hasOwnProperty(layerNameBeforeChange));
+                  // console.log("arrayDataToJSON[layerNameBeforeChange]");
+                  // console.log(arrayDataToJSON[layerNameBeforeChange]);
+
+                  // console.log("allTextLayersFunction[tf].text");
+                  // console.log(allTextLayersFunction[tf].text);
+                  
+                  // console.log("allTextLayersFunction[tf].name");
+                  // console.log(allTextLayersFunction[tf].name);
+
+                  allTextLayersFunction[tf].text = arrayDataToJSON[layerNameBeforeChange];
+                  allTextLayersFunction[tf].name = layerNameBeforeChange; 
+
+                // }
+                }
+                
+              // } 
+            
+            // })
               }
-              }
-              
-            } 
+            
           }
-
+          
 
             ui.message("💽: Done applying Data Tokens to Selected Layers! 👏 🚀");
           
@@ -1059,7 +1100,7 @@ function onRun(context) {
 
 
          if (prop == "pastevalue"){
-          console.log("pastevalue") 
+          // console.log("pastevalue") 
 
           if (layer) {
             
@@ -1067,11 +1108,11 @@ function onRun(context) {
             for (sl = 0; sl < selectedLayers.layers.length+1; ++sl) {
 
               
-            console.log("paste value to element... " + sl + "of" + selectedLayers.layers.length )
+            // console.log("paste value to element... " + sl + "of" + selectedLayers.layers.length )
             
             var selectedLayer = selectedLayers.layers[sl];
 
-            console.log(selectedLayer.type)
+            // console.log(selectedLayer.type)
 
             if (selectedLayer.type == "Text"){
 
@@ -1081,25 +1122,25 @@ function onRun(context) {
 
               selectedLayer.name = layerNameBeforeChange;
               
-              console.log("el: " + sl + " - type: " + selectedLayer.type + " - name: " + selectedLayer.name + " - value: " + selectedLayer.text ) 
+              // console.log("el: " + sl + " - type: " + selectedLayer.type + " - name: " + selectedLayer.name + " - value: " + selectedLayer.text ) 
 
             // if (layer.type == "SymbolInstance"){
 
-            //     console.log(layer.type)
+            //     // console.log(layer.type)
             //     var sourceElementOverrides = layer.overrides;
 
-            //     console.log("sourceElementOverrides.length:"+sourceElementOverrides.length)
+            //     // console.log("sourceElementOverrides.length:"+sourceElementOverrides.length)
             //     for (o = 0; o < sourceElementOverrides.length; ++o) {
 
             //       if (selectedLayer.name == sourceElementOverrides[o].affectedLayer.name) {
             //         selectedLayer.text = sourceElementOverrides[o].affectedLayer.text
             //       }
 
-            //       console.log("----- getting source values:")
-            //       console.log("override name:" + sourceElementOverrides[o].affectedLayer.name);
-            //       console.log("layer name:" + selectedLayer.name);
-            //       // console.log("value:" + (sourceElementOverrides[o].value || "none"));
-            //       console.log("text:" + (sourceElementOverrides[o].affectedLayer.text || "none"));
+            //       // console.log("----- getting source values:")
+            //       // console.log("override name:" + sourceElementOverrides[o].affectedLayer.name);
+            //       // console.log("layer name:" + selectedLayer.name);
+            //       // // console.log("value:" + (sourceElementOverrides[o].value || "none"));
+            //       // console.log("text:" + (sourceElementOverrides[o].affectedLayer.text || "none"));
   
             //     }
 
@@ -1112,42 +1153,42 @@ function onRun(context) {
 
 
             // if (selectedLayer.type == "SymbolInstance"){
-            //   // console.log("paste overrides...")
-            //   // console.log(layer.overrides)
-            //   // console.log("paste overrides Des...")
-            //   // console.log(selectedLayer.overrides)
+            //   // // console.log("paste overrides...")
+            //   // // console.log(layer.overrides)
+            //   // // console.log("paste overrides Des...")
+            //   // // console.log(selectedLayer.overrides)
             //   // selectedLayer.overrides = layer.overrides
-            //   console.log("paste overrides Des2...")
+            //   // console.log("paste overrides Des2...")
             //   //////
 
             //   var sourceElementOverrides = layer.overrides;
             //   var selectionElementOverrides = selectedLayer.overrides;
 
-            //   // console.log(sourceElementOverrides)
+            //   // // console.log(sourceElementOverrides)
 
             //   for (o = 0; o < sourceElementOverrides.length; ++o) {
             //     // for (o = 0; o < 5; ++o) {
 
             //     // var o = 0
             //     /// source values
-            //     // console.log("----- getting source values:")
-            //     // console.log("name:" + sourceElementOverrides[o].affectedLayer.name);
-            //     // console.log("value:" + (sourceElementOverrides[o].value || "none"));
-            //     // console.log("text:" + (sourceElementOverrides[o].affectedLayer.text || "none"));
-            //     // console.log("image:" + (sourceElementOverrides[o].affectedLayer.image));
+            //     // // console.log("----- getting source values:")
+            //     // // console.log("name:" + sourceElementOverrides[o].affectedLayer.name);
+            //     // // console.log("value:" + (sourceElementOverrides[o].value || "none"));
+            //     // // console.log("text:" + (sourceElementOverrides[o].affectedLayer.text || "none"));
+            //     // // console.log("image:" + (sourceElementOverrides[o].affectedLayer.image));
 
             //     //layer.overrides[1].affectedLayer.image
-            //     // console.log("----- setting destination to:")
-            //     // console.log("name:" + selectionElementOverrides[o].affectedLayer.name);
-            //     // console.log("value:" + (selectionElementOverrides[o].value || "none"));
+            //     // // console.log("----- setting destination to:")
+            //     // // console.log("name:" + selectionElementOverrides[o].affectedLayer.name);
+            //     // // console.log("value:" + (selectionElementOverrides[o].value || "none"));
             //     selectionElementOverrides[o].value = sourceElementOverrides[o].value;
-            //     // console.log("text:" + (selectionElementOverrides[o].affectedLayer.text || "none"));
+            //     // // console.log("text:" + (selectionElementOverrides[o].affectedLayer.text || "none"));
             //     selectionElementOverrides[o].affectedLayer.text  = sourceElementOverrides[o].affectedLayer.text;
 
             //   }
 
 
-            //   console.log("resizeWithSmartLayout")
+            //   // console.log("resizeWithSmartLayout")
 
             //   selectedLayer.resizeWithSmartLayout();
 
@@ -1167,12 +1208,12 @@ function onRun(context) {
           /// Paste KEY 
 
          if (prop == "pastekey"){
-          console.log("pastekey") 
+          // console.log("pastekey") 
           
 
           if (layer) {
            
-            console.log("paste key...")
+            // console.log("paste key...")
             
             var selectedLayer = selectedLayers.layers[j];
 
@@ -1203,26 +1244,26 @@ function onRun(context) {
             ////
 
             if (prop == "fw"){
-              console.log("fullwidth")
+              // console.log("fullwidth")
               layer.frame.x = valuex;
               // layer.frame.y = valuey;
               layer.frame.width = layer.parent.frame.width - 2*valuex;
             }
 
             if (prop == "fh"){
-              console.log("fullheight")
+              // console.log("fullheight")
               layer.frame.y = valuey;
               // layer.frame.x = valuex;
               layer.frame.height = layer.parent.frame.height - 2*valuey;
             }
 
             if (prop == "fs"){
-              console.log("fullsize")
+              // console.log("fullsize")
               if (layer.type == "Text"){
-                console.log("fullsize")
+                // console.log("fullsize")
                 // layer.fixedWidth = true;
                 // fixedWidth
-                console.log(layer.fixedWidth)
+                // console.log(layer.fixedWidth)
               }
 
               layer.frame.x = valuex;
@@ -1235,7 +1276,7 @@ function onRun(context) {
             /// RTL
 
             if (prop == "%3e---%3e"){
-              console.log("RTL/flip imported")
+              // console.log("RTL/flip imported")
               flipPositionAndPins()
             }
 
@@ -1245,7 +1286,7 @@ function onRun(context) {
 
             if (prop == "+---+"){
 
-              console.log("padded layer")
+              // console.log("padded layer")
 
               var paddedLayerColor = '#F2F2F2'
 
@@ -1271,8 +1312,8 @@ function onRun(context) {
 
               var layerIndex = layer.index;
 
-              console.log("valuex")
-              console.log(valuex)
+              // console.log("valuex")
+              // console.log(valuex)
 
               if (valuex > 0) {
                 paddedLayer.index = layerIndex;
@@ -1282,11 +1323,11 @@ function onRun(context) {
 
               paddedLayer.selected = true;
 
-              // console.log("layer.index")
-              // console.log(layer.index)
-              // console.log("rectangle.index")
-              // console.log(paddedLayer.index)
-              // console.log("padded layer")
+              // // console.log("layer.index")
+              // // console.log(layer.index)
+              // // console.log("rectangle.index")
+              // // console.log(paddedLayer.index)
+              // // console.log("padded layer")
 
               var layerResizingConstraint = layer.sketchObject.resizingConstraint();
               paddedLayer.sketchObject.setResizingConstraint(layerResizingConstraint);
@@ -1299,7 +1340,7 @@ function onRun(context) {
 
             /// Padded Text layer
             if (prop == "+++"){
-              console.log("padded text layer")
+              // console.log("padded text layer")
 
               var paddedLayerColor = '#D3D3D3'
 
@@ -1315,7 +1356,7 @@ function onRun(context) {
 
               } else {
 
-                console.log("duplicate down text layer")
+                // console.log("duplicate down text layer")
                 var newLayer = layer.duplicate();
                 newLayer.frame.y = newLayer.frame.y + layer.frame.height + valuey
                 newLayer.frame.x = newLayer.frame.x + valuex
@@ -1341,7 +1382,7 @@ function onRun(context) {
 
             if (prop == "|||"){
 
-              // console.log("space horizzontally 4")
+              // // console.log("space horizzontally 4")
 
 
               if (layer.type == "Artboard"){
@@ -1354,7 +1395,7 @@ function onRun(context) {
                   layer.frame.x = layerParentChildren[j-1].frame.x + layerParentChildren[j-1].frame.width + valuex
                 }
 
-                console.log("force Y to min")
+                // console.log("force Y to min")
                 layer.frame.y = Math.min.apply(Math, layerParentChildren.map(function(o) { return o.frame.y; }))
 
               } else {
@@ -1368,7 +1409,7 @@ function onRun(context) {
                   layer.frame.x = layerParentChildren[j-1].frame.x + layerParentChildren[j-1].frame.width + valuex
                 }
 
-                // console.log("force Y to min")
+                // // console.log("force Y to min")
                 layer.frame.y = Math.min.apply(Math, layerParentChildren.map(function(o) { return o.frame.y; }))
 
 
@@ -1387,7 +1428,7 @@ function onRun(context) {
             /// Stacking
 
             if (prop == "-20-20-"){
-              // console.log("space vertically - selectedLayers 7")
+              // // console.log("space vertically - selectedLayers 7")
 
               if (layer.type == "Artboard"){
 
@@ -1399,7 +1440,7 @@ function onRun(context) {
                   layer.frame.y = layerParentChildren[j-1].frame.y + layerParentChildren[j-1].frame.height + valuey
                 }
 
-                console.log("force X to min")
+                // console.log("force X to min")
                 layer.frame.x = Math.min.apply(Math, layerParentChildren.map(function(o) { return o.frame.x; }))
 
               } else {
@@ -1413,7 +1454,7 @@ function onRun(context) {
                   layer.frame.y = layerParentChildren[j-1].frame.y + layerParentChildren[j-1].frame.height + valuey
                 }
 
-                // console.log("force X to min")
+                // // console.log("force X to min")
                 layer.frame.x = Math.min.apply(Math, layerParentChildren.map(function(o) { return o.frame.x; }))
 
 
@@ -1432,7 +1473,7 @@ function onRun(context) {
 
 
             if (prop == "dw"){
-              console.log("down")
+              // console.log("down")
               var newLayer = layer.duplicate();
               newLayer.frame.y = newLayer.frame.y + layer.frame.height + valuey
               newLayer.index = layer.index;
@@ -1446,7 +1487,7 @@ function onRun(context) {
             }
 
             if (prop == "up"){
-              console.log("up")
+              // console.log("up")
               var newLayer = layer.duplicate();
               newLayer.frame.y = newLayer.frame.y - layer.frame.height - valuey
 
@@ -1459,7 +1500,7 @@ function onRun(context) {
             }
 
             if (prop == "dx"){
-              console.log("right")
+              // console.log("right")
               var newLayer = layer.duplicate();
               newLayer.frame.x = newLayer.frame.x + layer.frame.width + valuex
               newLayer.index = layer.index;
@@ -1474,7 +1515,7 @@ function onRun(context) {
             }
 
             if (prop == "sx"){
-              console.log("left")
+              // console.log("left")
               var newLayer = layer.duplicate();
               newLayer.frame.x = newLayer.frame.x - layer.frame.width - valuex
 
@@ -1530,21 +1571,21 @@ function onRun(context) {
 
 
             if (layer.parent.layers.length << 2) {
-              // console.log("only child")
+              // // console.log("only child")
               adjustToFitIfGroup(layer);
             }
 
 
 
             ///
-            // console.log(layer.sketchObject.resizingConstraint())
+            // // console.log(layer.sketchObject.resizingConstraint())
 
             ui.message("💽: Done! 👏 🚀");
 
             /// UNDO
           //   if (prop == "undo"){
           //   //MSUndoAction
-          //   console.log("undo---")
+          //   // console.log("undo---")
           //   ui.message("💽: Undo! 👏 🚀");
 
           //   context.document.actionsController().actionForID("MSUndoAction").doPerformAction(null);
@@ -1557,8 +1598,8 @@ function onRun(context) {
 
             // for (s = 0; s < resultingSelectedLayers.length; s++) {
 
-            //   console.log("resultingSelectedLayers")
-            //   console.log(resultingSelectedLayers)
+            //   // console.log("resultingSelectedLayers")
+            //   // console.log(resultingSelectedLayers)
             //   resultingSelectedLayers[s].selected = true;
             // }
 
@@ -1674,13 +1715,13 @@ function onRun(context) {
 //   // WORKAROUND: document.selectedLayers().layers()
 //   // http://sketchplugins.com/d/112-bug-selectionchanged-finish-newselection-is-empty
 //
-//   console.log("You are selecting things")
+//   // console.log("You are selecting things")
 //
 //   ui.message("💽: You are selecting things! 👏 🚀");
 // }
 
 function printValue(label,value){
-  console.log(label + ":"+ value)
+  // console.log(label + ":"+ value)
 }
 
 
@@ -1703,10 +1744,10 @@ function createText(layer,textX,textY,width,height,textValue) {
   var textFontSize = 12;
 
   var backgroundColor = layer.style.fills[0].color.slice(0,7)
-  // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
+  // // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
   var highContrastColor = invertColor(backgroundColor, true) || "#999"
 
-  // console.log(highContrastColor)
+  // // console.log(highContrastColor)
 
   var textColor = highContrastColor
 
@@ -1753,22 +1794,22 @@ function createText(layer,textX,textY,width,height,textValue) {
 //
 //   var selection = document.selectedLayers;
 //
-//   console.log(selection.layers[0].name);
+//   // console.log(selection.layers[0].name);
 //
 //   for (j = 0; j < selection.length; ++j){
 //
-//     console.log("RTL/flip imported function")
+//     // console.log("RTL/flip imported function")
 //
 //     var layer = selection.layers[j]
 //
 //     var parentWidth = layer.parent.frame.width
 //
-//     console.log("before")
-//     console.log(layer.frame.x)
+//     // console.log("before")
+//     // console.log(layer.frame.x)
 //
 //     layer.frame.x = parentWidth - layer.frame.x - layer.frame.width
-//     console.log("after")
-//     console.log(layer.frame.x)
+//     // console.log("after")
+//     // console.log(layer.frame.x)
 //
 //     var newConstraint = 0;
 //     var newConstraint = layer.sketchObject.resizingConstraint();
