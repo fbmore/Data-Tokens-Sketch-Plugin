@@ -544,8 +544,34 @@ button.tertiary-small {
 	/* border: 1px solid var(--buttongroup-button-background-active); */
 	/* background-color: var(--view-background-color) */
 	background-color: var(--input-background-color);
-	color: white;
+	color: var(--buttongroup-color);
 }
+
+.copystringbtn {
+	/* height: var(--size-x-small);
+	padding: 8px 12px; */
+	/* box-shadow: var(--buttongroup-box-shadow); */
+	border-radius: var(--border-radius-large);
+	/* min-width: 32px; */
+	min-height: 31px;
+	margin: 0;
+	margin-left: 4px;
+	border: none;
+	text-align: left;
+	cursor: pointer;
+	/* border: 1px solid var(--buttongroup-button-background-active); */
+	/* background-color: var(--view-background-color) */
+	background-color: var(--color-grey-darker);
+	color: var(--buttongroup-color);
+	zoom: .5;
+	opacity: .5;
+}
+
+.copystringbtn:hover {
+	opacity: 1;
+}
+
+
 .pastekeybtn:hover {
 	background-color: var(--color-accent);
 	/* color: white; */
@@ -566,7 +592,7 @@ button.tertiary-small {
 	/* border: 1px solid var(--buttongroup-button-background-active); */
 	/* background-color: var(--view-background-color) */
 	background-color: var(--input-background-color);
-	color: white;
+	color: var(--buttongroup-color);
 }
 .pastevaluebtn:hover {
 	background-color: var(--color-accent);
@@ -802,9 +828,9 @@ input[type="radio"]:hover {
 }
 
 #pasteAllValuesBtn{
-	margin-left: 12px;
+	margin-left: 6px;
 	padding-right: 3px;
-	width: 72px !important;
+	width: 64px !important;
 }
 
 #pasteAllValuesToDocBtn{
@@ -813,7 +839,7 @@ input[type="radio"]:hover {
 }
 
 #helptext{
-	margin-left: 24px;
+	margin-left: 16px;
 	padding-right: 0;
 }
 
@@ -1082,6 +1108,7 @@ console.log(data);
 			var localDataFromString = result.toString();
 
 			itemActions.innerHTML = '<label id="helptext">Apply to:</label><input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvalues&value=' + (localDataFromString) + '\')" type="button" value="Selection" alt="Apply all Values to Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
+			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestopage&value=' + (localDataFromString) + '\')" type="button" value="Page" alt="Apply all Values to All Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
 			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestodoc&value=' + (localDataFromString) + '\')" type="button" value="Document" alt="Apply all Values to All Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
 
 			var localDataAsArray = localDataFromString.split(divider)
@@ -1156,7 +1183,12 @@ console.log(data);
 
         let item2 = document.createElement("li");
         //item2.innerHTML = "<div>" + data[key] + " </div>";
+		// item2.innerHTML = '<button value="'+data[key]+'" class="pastevaluebtn" class="tertiary">'+data[key]+'</button>   <input id="copyStringBtn" onclick="setSize(\'copystring&value=' +data[key] + '\')" type="button" value="Copy" />';
 		item2.innerHTML = '<button value="'+data[key]+'" class="pastevaluebtn" class="tertiary">'+data[key]+'</button>';
+		item2.innerHTML = item2.innerHTML + '<button class="copystringbtn" onclick="setSize(\'copystring&value=' + data[key] + '\')"><img src="ff-icons/icon-copy.svg" class="svg-tint" title="Copy Value"></button>';
+		
+		//'<input id="copyStringBtn" onclick="setSize(\'copystring&value=' + data[key] + '\')" type="button" value="Copy" />';
+
 
         // let item3 = document.createElement("li");
         // // item3.innerHTML = '<button id="pastevaluebtn" class="tertiary" onclick="setSize(\'pastevalue\',\'' + hello + '\')"><img src="ff-icons/icon-paste-value.svg" class="svg-tint" title="Paste Value"></button>';
@@ -1283,15 +1315,75 @@ console.log(data);
     //document.getElementById("mainContent").appendChild(list);
     </script>
 <div id="dropdownAndActionsArea">
+	<!-- <input type="file" name="inputfile" id="inputfile">
+    <br>
+   
+    <pre id="output"></pre>
+      
+    <script type="text/javascript">
+        document.getElementById('inputfile')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+                document.getElementById('output')
+                        .textContent=fr.result;
+            }
+              
+            fr.readAsText(this.files[0]);
+        })
+    </script> -->
+
 <select id="sel" onchange='loadJSONData(this.value)'>
-    <option value='-1' selected>Select Data Source...</option>
+    <option value='-1' selected>Select Source...</option>
     <option value='0'>Data Set 1</option>
     <option value='1'>Data Set 2</option>
     <option value='2'>Data Set 3</option>
   </select>
   <div id="globalActions--">
+	
+
 
   </div>
+
+  <!-- <div class="view">
+	<p class="label--tabGroups">Create your buttons and their states</p>
+	<div class="table">
+		<div class="tr tr-labeled">
+			<div class="td" colspan="5">
+				<div>
+					<label class="label--tabGroups" for="buttonTypeGroup">Type</label>
+				</div>
+				<div>
+					<ul class="buttonGroup buttonGroup-3" name="buttonTypeGroup" id="buttonTypeGroup">
+						<li>
+							<input type="radio" id="buttonType1" name="buttonType" value="1" checked />
+							<label class="button secondary button-first" for="buttonType1">Text</label>
+						</li>
+						<li>
+							<input type="radio" id="buttonType2" name="buttonType" value="2" />
+							<label class="button secondary" for="buttonType2">Icon & Text</label>
+						</li>
+						<li>
+							<input type="radio" id="buttonType3" name="buttonType" value="3" />
+							<label class="button secondary button-last" for="buttonType3">Icon</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div> -->
+
+  <!-- <div class="btn-group" data-toggle="buttons">
+	<label class="btn btn-primary active">
+	  <input type="radio" name="options" id="option1" checked> Selection
+	</label>
+	<label class="btn btn-primary">
+	  <input type="radio" name="options" id="option2"> Document
+	</label>
+  </div> -->
+
   <!-- <select id="scope">
     <option value='0' selected>Selection</option>
     <option value='1'>Document</option>
@@ -1344,46 +1436,15 @@ grid-row-gap: 0px;
 
 <script>
 
-//     const LoadData = async () => {
-//         try {
-//             // const url = 'https://raw.githubusercontent.com/benjamin-hg-marchant/datasets/main/modis_cloud_phase_time_series_analysis.json'
-//             const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
-
-//             const res = await fetch(url);
-//             // const data = await res.json();
-//             const data = await res;
-//             console.log("data loaded");
-// 			console.log(data);
-//         }catch(err) {
-//             console.error(err)
-//         }
-//     };
-
-// ( async () => {
-// const data = await LoadData();
-// console.log(data);
-// // console.log(data.length());
-// } )();
-
-// let xhr = new XMLHttpRequest();
-// xhr.open("GET", "https://raw.githubusercontent.com/benjamin-hg-marchant/datasets/main/modis_cloud_phase_time_series_analysis.json");
-//xhr.open("GET", "https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv");
-
-// xhr.onreadystatechange = function () {
-//    if (xhr.readyState === 4) {
-//     //   console.log(xhr.responseText);
-// 	  console.log(xhr.response);
-//    }};
-
-// xhr.send();
-
-
-// fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv')
+// fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=json')
 //   .then(response => response.text())
 //   .then(data => {
 //   	// Do something with your data
 //   	console.log(data);
 //   });
+
+
+
 
 </script>
 
@@ -1726,30 +1787,30 @@ function updateInput(value) {
 	document.getElementById('myInput').value = value;
 }
 
-function updateSelectedLayersNames(value) {
-	// var svg = '<svg width="43px" height="43px" viewBox="0 0 43 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Artboard" transform="translate(-595.000000, -39.000000)" fill="#6236FF"><circle id="Oval" cx="616.5" cy="60.5" r="21.5"></circle></g></g></svg>'
-	// <svg version="1.1" width="
+// function updateSelectedLayersNames(value) {
+// 	// var svg = '<svg width="43px" height="43px" viewBox="0 0 43 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Artboard" transform="translate(-595.000000, -39.000000)" fill="#6236FF"><circle id="Oval" cx="616.5" cy="60.5" r="21.5"></circle></g></g></svg>'
+// 	// <svg version="1.1" width="
 	
-	// document.getElementById('myLayerNames').innerHTML = "Key Object:<br><br><b>"+ svg+"</b>";
+// 	// document.getElementById('myLayerNames').innerHTML = "Key Object:<br><br><b>"+ svg+"</b>";
 
-	// var itemWidth = parseInt(value.split('<svg width="')[1].split('px" height=')[0])
-	// // var itemWidth = parseInt(value.split('<svg version="1.1" width="')[1].split('px" height=')[0])
-	// var scaleFactor = parseInt(itemWidth) / 300;
-	// if (itemWidth <= 152){
-	// 	scaleFactor = parseInt(itemWidth) / 152;
-	// }
-	// alert("Hello! I am an alert box!!");
-	document.getElementById('myLayerNames').style='display:none'
-	//var zoomValue = scaleFactor;
-	// var zoomHTML = "zoom:"+zoomValue;
-	// var zoomHTML = "";
+// 	// var itemWidth = parseInt(value.split('<svg width="')[1].split('px" height=')[0])
+// 	// // var itemWidth = parseInt(value.split('<svg version="1.1" width="')[1].split('px" height=')[0])
+// 	// var scaleFactor = parseInt(itemWidth) / 300;
+// 	// if (itemWidth <= 152){
+// 	// 	scaleFactor = parseInt(itemWidth) / 152;
+// 	// }
+// 	// alert("Hello! I am an alert box!!");
+// 	document.getElementById('myLayerNames').style='display:none'
+// 	//var zoomValue = scaleFactor;
+// 	// var zoomHTML = "zoom:"+zoomValue;
+// 	// var zoomHTML = "";
 
-	document.getElementById('myLayerPreviewContainer').style='display:block;';
-	//document.getElementById('myLayerPreviewContainer').style=zoomHTML;
-	// document.getElementById('myLayerPreviewContainer').innerHTML = '<?xml version="1.0" encoding="UTF-8"?><svg width="220px" height="67px" viewBox="0 0 220 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    <title>Group</title>    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">        <g id="Artboard" transform="translate(-42.000000, -156.000000)" fill="#6236FF">            <g id="Group" transform="translate(42.000000, 156.000000)">                <rect id="Rectangle" x="0" y="0" width="99" height="67"></rect>                <rect id="Rectangle" x="121" y="0" width="99" height="67"></rect>            </g>        </g>    </g></svg>';
-	// document.getElementById('myLayerPreviewContainer').innerHTML = value;
-	document.getElementById('myLayerPreview').innerHTML = value;
-}
+// 	document.getElementById('myLayerPreviewContainer').style='display:block;';
+// 	//document.getElementById('myLayerPreviewContainer').style=zoomHTML;
+// 	// document.getElementById('myLayerPreviewContainer').innerHTML = '<?xml version="1.0" encoding="UTF-8"?><svg width="220px" height="67px" viewBox="0 0 220 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    <title>Group</title>    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">        <g id="Artboard" transform="translate(-42.000000, -156.000000)" fill="#6236FF">            <g id="Group" transform="translate(42.000000, 156.000000)">                <rect id="Rectangle" x="0" y="0" width="99" height="67"></rect>                <rect id="Rectangle" x="121" y="0" width="99" height="67"></rect>            </g>        </g>    </g></svg>';
+// 	// document.getElementById('myLayerPreviewContainer').innerHTML = value;
+// 	document.getElementById('myLayerPreview').innerHTML = value;
+// }
 
 function updateSelectedLayersData(x,y) {
 	// var defaultX = 0
