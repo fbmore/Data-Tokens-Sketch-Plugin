@@ -1107,9 +1107,9 @@ console.log(data);
 
 			var localDataFromString = result.toString();
 
-			itemActions.innerHTML = '<label id="helptext">Apply to:</label><input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvalues&value=' + (localDataFromString) + '\')" type="button" value="Selection" alt="Apply all Values to Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
-			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestopage&value=' + (localDataFromString) + '\')" type="button" value="Page" alt="Apply all Values to All Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
-			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestodoc&value=' + (localDataFromString) + '\')" type="button" value="Document" alt="Apply all Values to All Text Layers with matching Data Token Names" title="Apply all Values to Text Layers with matching Data Token Names" />';
+			itemActions.innerHTML = '<label id="helptext">Apply to:</label><input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvalues&value=' + (localDataFromString) + '\')" type="button" value="Selection" alt="Apply all Token Values to Text Layers, within the selected Layers, with matching Token Names" title="Apply all Token Values to Text Layers, within the selected Layers, with matching Token Names" />';
+			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestopage&value=' + (localDataFromString) + '\')" type="button" value="Page" alt="Apply all Token Values to Text Layers, within the selected Page, with matching Token Names" title="Apply all Token Values to Text Layers, within the selected Page, with matching Token Names" />';
+			itemActions.innerHTML = itemActions.innerHTML + '<input id="pasteAllValuesBtn" onclick="setSize(\'pasteallvaluestodoc&value=' + (localDataFromString) + '\')" type="button" value="Document" alt="Apply all Token Values to Text Layers, within the selected Document, with matching Token Names" title="Apply all Token Values to Text Layers, within the selected Document, with matching Token Names" />';
 
 			var localDataAsArray = localDataFromString.split(divider)
 
@@ -1484,7 +1484,7 @@ grid-row-gap: 0px;
 
 	<div class="grid-container-directions">
 
-		<button class="tertiary" id="tl" onclick="setSize('tl')" name="direction" value="tl">
+		<!-- <button class="tertiary" id="tl" onclick="setSize('tl')" name="direction" value="tl">
 			<img src="ff-icons/icon-pin.svg" class="svg-tint" title="Top & Left">
 		</button>
 		
@@ -1518,7 +1518,7 @@ grid-row-gap: 0px;
 
 		<button class="tertiary" id="tr" onclick="setSize('br')" name="direction" value="br">
 			<img src="ff-icons/icon-pin.svg" class="svg-tint" title="Bottom & Right">
-		</button>
+		</button> -->
 
 
 
@@ -1539,7 +1539,7 @@ grid-row-gap: 0px;
 	<span class="spacer"></span>
 	<div class="grid-container-sizes">
 
-		<button class="tertiary" onclick="setSize('-20-20-')">
+		<!-- <button class="tertiary" onclick="setSize('-20-20-')">
 			<img src="ff-icons/icon-spacing-v.svg" class="svg-tint" title="Space vertically">
 		</button>
 
@@ -1553,7 +1553,7 @@ grid-row-gap: 0px;
 
 		<button class="tertiary" onclick="setSize('+++')">
 			<img src="ff-icons/icon-padding-text.svg" class="svg-tint" title="Add or modify padded layer">
-		</button>
+		</button> -->
 
 
 	</div>
@@ -1566,7 +1566,7 @@ grid-row-gap: 0px;
 	<span class="spacer"></span>
 	<div class="grid-container-sizes">
 
-		<button class="tertiary" onclick="setSize('dw')">
+		<!-- <button class="tertiary" onclick="setSize('dw')">
 			<img src="ff-icons/icon-dw.svg" class="svg-tint" title="Duplicate down">
 		</button>
 
@@ -1580,7 +1580,7 @@ grid-row-gap: 0px;
 
 		<button class="tertiary" onclick="setSize('up')">
 			<img src="ff-icons/icon-up.svg" class="svg-tint" title="Duplicate up">
-		</button>
+		</button> -->
 
 	</div>
 
@@ -1594,7 +1594,7 @@ grid-row-gap: 0px;
 	<span class="spacer"></span>
 	<div class="grid-container-sizes">
 
-		<button class="tertiary" onclick="setSize('fw')">
+		<!-- <button class="tertiary" onclick="setSize('fw')">
 			<img src="ff-icons/icon-fw.svg" class="svg-tint" title="Set selection to full width">
 		</button>
 
@@ -1608,7 +1608,7 @@ grid-row-gap: 0px;
 
 		<button class="tertiary" onclick="setSize('%3e---%3e')">
 			<img src="ff-icons/icon-rtl.svg" class="svg-tint" title="Flip selection position and pins">
-		</button>
+		</button> -->
 
 	</div>
 	<!-- end	-->

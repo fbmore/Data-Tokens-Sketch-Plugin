@@ -193,7 +193,7 @@ function onRun(context) {
       return;
     }
 
-    var windowWidth = 440,
+    var windowWidth = 480,
     windowHeight = 640;
     var webViewWindow = NSPanel.alloc().init();
     webViewWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);

@@ -1,0 +1,19 @@
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Data Tokens UI</title>
+    <link>https://raw.githubusercontent.com/fbmore/DataTokens-UI-Sketch-Plugin/main/appcast.xml</link>
+    <description>Apply Data Token Values to Text Layers and Symbol overrides.</description>
+    <language>en</language>
+    <item>
+      <title>Version 0.0.7</title>
+      <description>
+        <![CDATA[
+        <ul>
+          <li>Initial release</li>
+        </ul>
+        ]]>
+      </description>
+      <enclosure url="https://github.com/fbmore/DataTokens-UI-Sketch-Plugin/raw/main/DataTokens-UI.sketchplugin.zip" sparkle:version="0.0.7" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
