@@ -3,8 +3,9 @@ var onRun = function(context) {
   let document = sketch.getSelectedDocument()
   var Page = require('sketch/dom').Page
   var Text = require('sketch/dom').Text
+  var Artboard = require('sketch/dom').Artboard
   var Group = require('sketch/dom').Group
-  var selectedPage = document.selectedPage;
+  // var selectedPage = document.selectedPage;
   var Settings = require('sketch/settings')
   var page = document.selectedPage;
 
@@ -16,6 +17,8 @@ var onRun = function(context) {
   var ui = require('sketch/ui');
 
   var staticData = {"label": "Hello Francesco! 😀"}
+  var chosenOption = "Value"
+  var keyLabel = "Key"
 
           
 //////// from REMOTE CSV/TSV TO JSON  
@@ -195,7 +198,8 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       var allKeys = Object.keys(staticData[0])
       console.log(allKeys)
 
-      allKeys.shift();
+      allKeys.shift(); // So the headers can be used as options in the dropdown
+      
 
       /// adds ability to choose the option i.e. "English" or "Product Name"
       var language = "";
@@ -256,7 +260,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     console.log("JSONobjLanguage")
 
 
-    ////// nee page
+    ////// new page
     var newPage = new Page({
       name: 'Tokens References',
     })
@@ -269,17 +273,46 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     
     console.log(page.name);
     
+    var artboard = new Artboard({
+      name: 'Tokens References',
+    })
     
+    artboard.parent = newPage
+
+    artboard.frame.x = 0
+    artboard.frame.y = 0
+    artboard.frame.width = 2256
+    artboard.frame.height = 1152
+  
+
+
+
 
     // Create artboard with name Data Tokens Reference Sheet
     
-    var valuex = 0;
-    var valuexCol2 = 400;
+    var valuex = 200;
+    var valuexCol2 = 600;
     var valuey = 0;
-    var valueyMinRowHeight = 100;
+    var prevGroupBottomEdge = 200; // used as starting point as well
+    var spaceBetweenRows = 24;
+    // var valueyMinRowHeight = 100;
 
-    var prevGroupBottomEdge = 0;
+    
     // general keys
+
+    var chosenOption = "Value"
+    var keyLabel = "Key"
+
+    createText(valuex,valuey-24,200,40,keyLabel,artboard)
+    createText(valuexCol2,valuey-24,200,40,chosenOption,artboard)
+
+    // var headersObj = JSON.parse("{" + keyLabel + ":'"+chosenOption+"'}");
+    
+    // headersObj[keyLabel] = chosenOption;
+
+    // var JSONobjHeadersKeysAndValues = headersObj.concat(JSONobjLanguage);
+    
+    //JSONobjLanguage[keyLabel] = chosenOption;
 
     for (const [key, value] of Object.entries(JSONobjLanguage)) {
       console.log(`${key}: ${value}`);
@@ -301,12 +334,11 @@ function exportDataTokensToReferenceSheet(key,value) {
 
 var textValue = key
 
-
 var group = new Group({
   name: textValue
 })
 
-group.parent = newPage
+group.parent = artboard
 
 group.frame.y = prevGroupBottomEdge;
 
@@ -320,9 +352,9 @@ group.adjustToFit();
 
 console.log("prevGroupBottomEdge")
 console.log(prevGroupBottomEdge)
-console.log(group.height)
+console.log(group.frame.height)
 
-prevGroupBottomEdge = group.height + 40
+prevGroupBottomEdge = group.frame.y + group.frame.height + spaceBetweenRows
 
 }
 
