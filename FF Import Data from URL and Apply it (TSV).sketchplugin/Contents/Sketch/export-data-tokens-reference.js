@@ -3,6 +3,7 @@ var onRun = function(context) {
   let document = sketch.getSelectedDocument()
   var Page = require('sketch/dom').Page
   var Text = require('sketch/dom').Text
+  var Rectangle = require('sketch/dom').Rectangle
   var Artboard = require('sketch/dom').Artboard
   var Group = require('sketch/dom').Group
   // var selectedPage = document.selectedPage;
@@ -296,13 +297,22 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     var valuey = 0;
     var textWidth = 200;
     var textHeight = 40;
-    var prevGroupBottomEdge = 200; // used as starting point for the Y as well
-    var spaceBetweenRows = 24;
+    var prevGroupBottomEdge = 280; // used as starting point for the Y as well
+    var spaceBetweenRows = 12;
+    var pageTitleOffset = 88;
     var headersOffset = 64;
     // var valueyMinRowHeight = 100;
 
-    
-    // general keys
+
+    // Create Page Title
+
+    var pageTitle = "Tokens References" 
+
+    /// Create Key Text Layer
+    createText(valuex,pageTitleOffset,880,48*1.5,pageTitle,artboard,48)
+
+
+    // Create Headers
 
     var chosenOption = result || "Value" 
     var keyLabel = "Key"
@@ -313,6 +323,9 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     /// Create Value Text Layer
     createText(valuex + valuexCol2,prevGroupBottomEdge-headersOffset,textWidth,textHeight,chosenOption,artboard)
     
+    // /// Create Divider 
+    // createDivider(artboard,1)
+
 
     // var headersObj = JSON.parse("{" + keyLabel + ":'"+chosenOption+"'}");
     
@@ -362,8 +375,9 @@ var textValue = value
 createText(valuexCol2,valuey,textWidth*2,textHeight,textValue,group)
 
 
-
 group.adjustToFit();
+/// Create Divider 
+createDivider(group,1)
 
 console.log("prevGroupBottomEdge")
 console.log(prevGroupBottomEdge)
@@ -423,7 +437,7 @@ function createText(textX,textY,width,height,textValue,newPage,fontSize) {
 
 //  var backgroundColor = layer.style.fills[0].color.slice(0,7)
   // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
-var highContrastColor = "#999"
+var highContrastColor = "#000000"
 
   // console.log(highContrastColor)
 
@@ -456,6 +470,42 @@ var highContrastColor = "#999"
 
   // Makes sure the layers stack correctly in the Layer List
   text.index = 0;
+  
+
+}
+
+
+function createDivider(parent,height) {
+
+  var Shape = require('sketch/dom').Shape
+  var Style = require('sketch/dom').Style
+
+
+  var fillColor = "#C0C0C0";
+  
+  var shape = new Shape()
+  
+  shape.style.fills = [
+    {
+      color: fillColor,
+      fillType: Style.FillType.Color,
+    },
+  ]
+
+  shape.name = "divider";
+  shape.parent = parent;
+  shape.frame.y = parent.frame.height + 12;
+  shape.frame.x = 0;
+  shape.frame.width = parent.frame.width
+  shape.frame.height = height
+
+  parent.adjustToFit()
+  
+
+  // Makes sure the layers stack correctly in the Layer List
+  shape.index = 0;
+
+  
   
 
 }
