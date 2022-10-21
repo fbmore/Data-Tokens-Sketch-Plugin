@@ -15,6 +15,7 @@ const util = require('util')
 /////
 var Settings = require('sketch/settings');
 var Document = require('sketch/dom').Document;
+var Image = require('sketch/dom').Image
 var	document = sketch.getSelectedDocument();
 var selectedPage = document.selectedPage;
 
@@ -24,6 +25,7 @@ let Style = sketch.Style
 let ShapePath = sketch.ShapePath
 let Text = sketch.Text
 let Rectangle = sketch.Rectangle
+
 
 
 //let's expose these globally
@@ -1110,6 +1112,49 @@ function onRun(context) {
             var selectedLayer = selectedLayers.layers[sl];
 
             // console.log(selectedLayer.type)
+
+            // if (selectedLayer.type == "ShapePath"){
+
+            //   var layerNameBeforeChange = selectedLayer.name
+
+            //   selectedLayer.name = "it's a shape!"
+            //   console.log("it's a shape!")
+
+              
+            //   /////// image from URL 
+            //   let imageurl = myValue;
+            //   let imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
+            //   let nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);
+
+            //   // let nsimage_height = nsimage.size().height;
+            //   // let nsimage_width = nsimage.size().width;
+
+            //   console.log("nsimage")
+            //   console.log(nsimage.size().height)
+
+            //   //nsimage.size().height
+
+
+            //   //let NSImageSize = NSImageRep *rep = [[nsimage representations] objectAtIndex:0];
+            //   //NSSize imageSize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+
+            //   console.log(imageurl)
+
+            //   console.log(layer.frame)
+            //   console.log("---> slayer.frame");
+
+            //   // layer.parent.layers = []
+
+            //   let image = new Image({
+            //     name: imageurl,
+            //     frame: new Rectangle(0,0,selectedObject.frame.width,selectedObject.frame.height),
+            //     image: nsimage                
+            //   })
+              
+            //   image.parent = layer.parent
+
+
+            // }  
 
             if (selectedLayer.type == "Text"){
 
