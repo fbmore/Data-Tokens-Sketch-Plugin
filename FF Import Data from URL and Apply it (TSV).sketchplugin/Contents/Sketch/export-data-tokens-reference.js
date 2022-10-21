@@ -9,6 +9,7 @@ var onRun = function(context) {
   var Settings = require('sketch/settings')
   var page = document.selectedPage;
 
+  // var firstCreatedTextLayer = ""; 
 
 
 
@@ -17,8 +18,8 @@ var onRun = function(context) {
   var ui = require('sketch/ui');
 
   var staticData = {"label": "Hello Francesco! 😀"}
-  var chosenOption = "Value"
-  var keyLabel = "Key"
+  // var chosenOption = "Value"
+  // var keyLabel = "Key"
 
           
 //////// from REMOTE CSV/TSV TO JSON  
@@ -205,7 +206,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       var language = "";
       // console.log("language: " + language)
 
-      var instructionalTextForInput = "A Data Tokens reference sheet will be created in a new page.\n\nPlease choose an data source option:"
+      var instructionalTextForInput = "A Data Tokens reference sheet will be created in a new page.\n\nPlease choose a data source option:"
 
       var result;
 
@@ -222,8 +223,8 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
             return
           } else {
             console.log(value)
-                // Create new page
-            
+            // Create new page
+            result = value;
             language = value;
           }
         }
@@ -290,21 +291,28 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 
     // Create artboard with name Data Tokens Reference Sheet
     
-    var valuex = 200;
-    var valuexCol2 = 600;
+    var valuex = 96;
+    var valuexCol2 = 480;
     var valuey = 0;
-    var prevGroupBottomEdge = 200; // used as starting point as well
+    var textWidth = 200;
+    var textHeight = 40;
+    var prevGroupBottomEdge = 200; // used as starting point for the Y as well
     var spaceBetweenRows = 24;
+    var headersOffset = 64;
     // var valueyMinRowHeight = 100;
 
     
     // general keys
 
-    var chosenOption = "Value"
+    var chosenOption = result || "Value" 
     var keyLabel = "Key"
 
-    createText(valuex,valuey-24,200,40,keyLabel,artboard)
-    createText(valuexCol2,valuey-24,200,40,chosenOption,artboard)
+    /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
+    createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)
+
+    /// Create Value Text Layer
+    createText(valuex + valuexCol2,prevGroupBottomEdge-headersOffset,textWidth,textHeight,chosenOption,artboard)
+    
 
     // var headersObj = JSON.parse("{" + keyLabel + ":'"+chosenOption+"'}");
     
@@ -342,11 +350,18 @@ group.parent = artboard
 
 group.frame.y = prevGroupBottomEdge;
 
-createText(valuex,valuey,200,40,textValue,group)
+group.index = 0;
 
+
+/// Create Key Text Layer 
+var textValue = key
+createText(valuex,valuey,textWidth,textHeight,textValue,group)
+
+/// Create Value Text Layer 
 var textValue = value
+createText(valuexCol2,valuey,textWidth*2,textHeight,textValue,group)
 
-createText(valuexCol2,valuey,200,40,textValue,group)
+
 
 group.adjustToFit();
 
@@ -397,14 +412,14 @@ const obj = JSON.parse(json);
 
 /// Create text layer
 
-function createText(textX,textY,width,height,textValue,newPage) {
+function createText(textX,textY,width,height,textValue,newPage,fontSize) {
 
   var Text = require('sketch/dom').Text
   // textX = 10;
   // textY = 10;
   textParent = newPage;
 
-  var textFontSize = 12;
+  var textFontSize = fontSize || 12;
 
 //  var backgroundColor = layer.style.fills[0].color.slice(0,7)
   // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
@@ -427,17 +442,20 @@ var highContrastColor = "#999"
   text.frame.y = textY
   text.fixedWidth = true;
   text.frame.width = width
-  //text.frame.height = height
+  text.frame.height = height
   text.parent = textParent;
-  text.index = text.index+1;
   text.style.fontSize = textFontSize;
   text.style.textColor = textColor;
   text.style.lineHeight = textLineHeight;
   text.style.alignment = textAlignment;
-  text.style.fontFamily= textFontFamily;
-  text.style.fontWeight= textFontWeight;
+  text.style.fontFamily = textFontFamily;
+  text.style.fontWeight = textFontWeight;
   text.name = textValue;
 
   valueyMinRowHeight = text.frame.height
+
+  // Makes sure the layers stack correctly in the Layer List
+  text.index = 0;
+  
 
 }
