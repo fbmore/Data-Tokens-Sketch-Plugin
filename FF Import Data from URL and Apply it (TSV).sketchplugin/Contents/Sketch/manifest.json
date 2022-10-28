@@ -29,6 +29,11 @@
 			"name": "Export Data Tokens Reference",
 			"identifier": "Export-Data-Tokens-Reference",
 			"script": "export-data-tokens-reference.js"
+		},
+		{
+			"name": "Export All Data Tokens Reference",
+			"identifier": "Export-All-Data-Tokens-Reference",
+			"script": "export-all-data-tokens-reference.js"
 		}
   	],
 	"menu": {
@@ -38,7 +43,8 @@
 			"-",
 			"Define-Data",
       "Export-Data-Tokens",
-	  "Export-Data-Tokens-Reference"
+	  "Export-Data-Tokens-Reference",
+	  "Export-All-Data-Tokens-Reference"
 		]
 	},
 	"name": "💽 Data Tokens",
