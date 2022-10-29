@@ -1,14 +1,27 @@
 var onRun = function(context) {
   var sketch = require("sketch");
   let document = sketch.getSelectedDocument()
-  var ui = require('sketch/ui');
   var Page = require('sketch/dom').Page
-  var Settings = require('sketch/settings')
+  var Text = require('sketch/dom').Text
+  var Rectangle = require('sketch/dom').Rectangle
   var Artboard = require('sketch/dom').Artboard
   var Group = require('sketch/dom').Group
-  var arrayDividerString = "/././././"; 
+  // var selectedPage = document.selectedPage;
+  var Settings = require('sketch/settings')
+  var page = document.selectedPage;
+
+  // var firstCreatedTextLayer = ""; 
+
+
+
+
+
+  var ui = require('sketch/ui');
 
   var staticData = {"label": "Hello Francesco! 😀"}
+  // var chosenOption = "Value"
+  // var keyLabel = "Key"
+
           
 //////// from REMOTE CSV/TSV TO JSON  
 
@@ -20,6 +33,10 @@ var onRun = function(context) {
     // Example data source URL  
     var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
     var queryURL = Settings.documentSettingForKey(document, 'defaultData') || queryURL
+
+    //console.log(Settings.documentSettingForKey(document, 'defaultData'));
+  
+
 
         /// Future update: support local document as source 
         
@@ -45,6 +62,7 @@ var onRun = function(context) {
               // most likely the user canceled the input
               return;
             } else {
+              console.log(value);
               result = value;
               Settings.setDocumentSettingForKey(document, 'defaultData', result)
             }
@@ -54,6 +72,8 @@ var onRun = function(context) {
         }
         
 
+
+
         if (result.slice(0,4) == "http"){
             staticData = fetchValuesFromRemoteFile(result);
     
@@ -61,9 +81,12 @@ var onRun = function(context) {
 
             /// TSV was pasted?
 
+            console.log(result);
+
             var goodQuotes = result.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
       
             result = goodQuotes;
+            //var array = result.split("\n")
 
             staticData = csvToJson(goodQuotes)
         }
@@ -74,6 +97,8 @@ var onRun = function(context) {
         ///
 
         let json = JSON.stringify(staticData, null, 2);
+        /// 
+        // let json = JSON.stringify([data], null, 2);
 
         if (json.length === 0) {
             sketch.UI.message("No data found.");
@@ -81,19 +106,19 @@ var onRun = function(context) {
         }
 
 
-  // function applyImageToOverride(override,imageurl) {
+  function applyImageToOverride(override,imageurl) {
 
-  //   /// Applies image from remote URL or local path to image overrides
+    /// Applies image from remote URL or local path to image overrides
 
-  //   /// If remote image just apply path to value
+    /// If remote image just apply path to value
 
-  //   // var imageurl =  "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80";
+    // var imageurl =  "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80";
 
-  //   var imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
-  //   var nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);                  
-  //   override.value = nsimage;
+    var imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
+    var nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);                  
+    override.value = nsimage;
 
-  // }
+  }
       
 
 
@@ -151,43 +176,90 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
   request.setHTTPMethod('GET')
   request.setURL(NSURL.URLWithString(queryURL))
 
+
   var error = NSError.new()
   var responseCode = null
   var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responseCode, error)
+
+  // console.log(response)
 
 
   var dataString = NSString.alloc().initWithData_encoding(response, NSUTF8StringEncoding).toString()
   
     //// convert TSV/CSV to JSON
     var goodQuotes = dataString.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+    //var goodQuotes = dataString
+
       
     staticData = csvToJson(goodQuotes)
-    var allKeys = Object.keys(staticData[0])
-    
-    allKeys.shift(); // So the headers can be used as options in the dropdown
-     
-    
-    ///// var Object with all options
-    
-    var objFromData = "{";
 
+    // console.log("static JSON Data - All keys")
+    // console.log(staticData)
+
+      console.log("All keys")
+      var allKeys = Object.keys(staticData[0])
+      console.log(allKeys)
+
+      allKeys.shift(); // So the headers can be used as options in the dropdown
+      
+
+      /// adds ability to choose the option i.e. "English" or "Product Name"
+      var language = "";
+      // console.log("language: " + language)
+
+      var instructionalTextForInput = "A Data Tokens reference sheet will be created in a new page.\n\nPlease choose a data source option:"
+
+      var result;
+
+      ui.getInputFromUser(
+        "Export Data Tokens Reference Sheet",
+        {
+          description: instructionalTextForInput,
+          type: ui.INPUT_TYPE.selection,
+          possibleValues: allKeys,
+        },
+        (err, value) => {
+          if (err) {
+            // most likely the user canceled the input
+            return
+          } else {
+            console.log(value)
+            // Create new page
+            result = value;
+            language = value;
+          }
+        }
+      )
+
+     
+      
+     if (language != "") {
+
+     console.log("choosen language: " + language)   
+
+
+    
+    ///// var Object with one language only
+    var objLanguage = "{";
+
+    //console.log(staticData)
     for (d = 0; d < staticData.length ; d++){ 
 
-      var obj2 = staticData[d];      
-      var keysToJoin = []
+      var obj2 = staticData[d];
+      console.log(obj2["Key"])
+      console.log(obj2[language])
 
-      for (k = 0; k < allKeys.length ; k++){         
-        keysToJoin.push(obj2[allKeys[k]])
-      }
-        
-      objFromData = objFromData + ' "' + obj2["Key"] + '" : "' + keysToJoin.join(arrayDividerString) +'",'
+      objLanguage = objLanguage + ' "' + obj2["Key"] + '" : "' + obj2[language] +'",'
 
     }
 
-    objFromData = objFromData.substring(0, objFromData.length - 1) +  " }"; 
 
-    var JSONobjFromData = JSON.parse(objFromData)
+    objLanguage = objLanguage.substring(0, objLanguage.length - 1) +  " }"; 
+    console.log(objLanguage)
 
+    var JSONobjLanguage = JSON.parse(objLanguage)
+
+    console.log("JSONobjLanguage")
 
 
     ////// new page
@@ -200,6 +272,8 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 
     newPage.selected = true;
     
+    
+    console.log(page.name);
     
     var artboard = new Artboard({
       name: 'Tokens References',
@@ -227,6 +301,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     var spaceBetweenRows = 12;
     var pageTitleOffset = 88;
     var headersOffset = 64;
+    // var valueyMinRowHeight = 100;
 
 
     // Create Page Title
@@ -239,25 +314,32 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 
     // Create Headers
 
-    var allValues = allKeys
+    var chosenOption = result || "Value" 
     var keyLabel = "Key"
-      
+
     /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
     createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)
 
-
-    /// Create Values Text Layers
-
-    for (k = 0; k < allValues.length ; k++){ 
-      var chosenOption = allValues[k]
-      createText(valuex + valuexCol2*(k+1),prevGroupBottomEdge-headersOffset,textWidth,textHeight,chosenOption,artboard)
-    }
+    /// Create Value Text Layer
+    createText(valuex + valuexCol2,prevGroupBottomEdge-headersOffset,textWidth,textHeight,chosenOption,artboard)
+    
+    // /// Create Divider 
+    // createDivider(artboard,1)
 
 
+    // var headersObj = JSON.parse("{" + keyLabel + ":'"+chosenOption+"'}");
+    
+    // headersObj[keyLabel] = chosenOption;
 
-    for (const [key, value] of Object.entries(JSONobjFromData)) {
+    // var JSONobjHeadersKeysAndValues = headersObj.concat(JSONobjLanguage);
+    
+    //JSONobjLanguage[keyLabel] = chosenOption;
+
+    for (const [key, value] of Object.entries(JSONobjLanguage)) {
+      console.log(`${key}: ${value}`);
+
       exportDataTokensToReferenceSheet(key,value)
-
+      //valuey = valuey;
     }
     
 
@@ -265,6 +347,11 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 
 function exportDataTokensToReferenceSheet(key,value) {
 
+    
+//console.log("exportDataTokensToReferenceSheet: " + key + " -- " + value)
+
+  
+/// Adjust to fit if parent is a group
 
 var textValue = key
 
@@ -284,25 +371,24 @@ var textValue = key
 createText(valuex,valuey,textWidth,textHeight,textValue,group)
 
 /// Create Value Text Layer 
-var allValues = value.split(arrayDividerString)
+var textValue = value
+createText(valuexCol2,valuey,textWidth*2,textHeight,textValue,group)
 
-for (k = 0; k < allValues.length ; k++){ 
-var textValue = allValues[k]
-createText(valuexCol2*(k+1),valuey,textWidth*2,textHeight,textValue,group)
-}
 
-/// Adjust to fit if parent is a group
 group.adjustToFit();
 /// Create Divider 
 createDivider(group,1)
 
+console.log("prevGroupBottomEdge")
+console.log(prevGroupBottomEdge)
+console.log(group.frame.height)
 
 prevGroupBottomEdge = group.frame.y + group.frame.height + spaceBetweenRows
 
 }
 
 
-sketch.UI.message("💽: Exported all data tokens! 🥳")
+sketch.UI.message("💽: Exported data tokens (" + language + ")! 🥳")
 
 
 
@@ -317,6 +403,7 @@ const obj = JSON.parse(json);
         return;
     }    
 
+
   try {
 
     var data = JSON.parse(JSON.stringify(obj))
@@ -327,6 +414,9 @@ const obj = JSON.parse(json);
     sketch.UI.message("Failed to import file")
     return null
   }
+    } else {
+      sketch.UI.message("💽: See you later! 👋")
+    }
 }
 
 };
@@ -345,7 +435,13 @@ function createText(textX,textY,width,height,textValue,newPage,fontSize) {
 
   var textFontSize = fontSize || 12;
 
-  var textColor = "#000000"
+//  var backgroundColor = layer.style.fills[0].color.slice(0,7)
+  // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
+var highContrastColor = "#000000"
+
+  // console.log(highContrastColor)
+
+  var textColor = highContrastColor
 
   var textLineHeight = textFontSize*1.5;
   var textAlignment = "left";
@@ -405,7 +501,11 @@ function createDivider(parent,height) {
 
   parent.adjustToFit()
   
+
   // Makes sure the layers stack correctly in the Layer List
   shape.index = 0;
+
+  
+  
 
 }

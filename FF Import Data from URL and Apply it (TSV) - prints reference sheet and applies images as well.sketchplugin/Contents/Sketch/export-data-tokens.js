@@ -41,7 +41,9 @@ extractDataTokensFromLayers(layers);
               // most likely the user canceled the input
               return;
             } else {
+              console.log(value);
               result = value;
+              //Settings.setDocumentSettingForKey(document, 'defaultData', result)
             }
           }
         );
@@ -98,6 +100,7 @@ extractDataTokensFromLayers(layers);
         var artboards = layers;
         artboards.forEach((artboard) => {
           symbolInstances = symbolInstances.concat(sketch.find("SymbolInstance", artboard));
+          console.log(symbolInstances.length)
         })
       }
       
@@ -106,6 +109,9 @@ extractDataTokensFromLayers(layers);
       for (t = 0; t < symbolInstances.length; t++){
           var overrides = symbolInstances[t].overrides
           
+          // if (1){
+          
+            // if (selectedLayersID.includes(symbolInstances[t].getParentArtboard().id)){
 
             overrides.forEach((override) => {
 
@@ -163,6 +169,22 @@ extractDataTokensFromLayers(layers);
     return value;
   }
   
+  
+  
+  // function applyImageToOverride(override,imageurl) {
+
+  //   /// Applies image from remote URL or local path to image overrides
+
+  //   /// If local image just apply path to value
+
+  //   // var imageurl =  "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80";
+
+  //   var imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
+  //   var nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);                  
+  //   override.value = nsimage;
+
+  // }
+
 
 
   };

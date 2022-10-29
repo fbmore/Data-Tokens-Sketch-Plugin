@@ -37,7 +37,7 @@ var onRun = function(context) {
     (err, value) => {
       if (err) {
         // most likely the user canceled the input
-        ui.message("🌈: Ooops! Try again later! 😀");
+        ui.message("💽: Ooops! Try again later! 😀");
 
         return
       } else {
@@ -45,7 +45,7 @@ var onRun = function(context) {
         Settings.setDocumentSettingForKey(document, 'defaultData', result);
 
 
-        ui.message("🌈: Yay! Defined " + result.split(",").length + " Data Source(s)! 👏 🚀");
+        ui.message("💽: Yay! Defined " + result.split(",").length + " Data Source(s)! 👏 🚀");
 
 
       }

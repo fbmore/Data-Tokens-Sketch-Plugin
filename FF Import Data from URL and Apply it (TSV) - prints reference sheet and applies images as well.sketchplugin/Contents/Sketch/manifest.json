@@ -3,45 +3,35 @@
 	"version": "0.0.4",
 	"icon": "icon.png",
 	"identifier": "com.fbmore.datatokens",
-	"description": "Import Data Tokens from a public GSheet URL or endpoint that returns a .tsv file",
+	"description": "Import Data Tokens from a public GSheet URL or endpoint that returns .tsv",
 	"homepage": "",
 	"author": "Francesco Bertocci",
 	"authorEmail": "fbmore@gmail.com",
 	"compatibleVersion": 80,
 	"commands": [
 		{
-			"name": "Apply Data Tokens from URL",
+			"name": "Apply Data Tokens from URL (TSV)",
 			"identifier": "Import-Data-Url",
 			"script": "import-data-url.js",
-      		"shortcut": "control shift i"
-	    },
+      "shortcut": "control shift i"
+    },
 		{
-			"name": "Apply Data Tokens from Local Data Source",
-			"identifier": "Import-Data-Local",
-			"script": "import-data-local.js"
-	    },
-		{
-			"name": "Define Remote Data Source (URL to .TSV)",
+			"name": "Define Data Sources",
 			"identifier": "Define-Data",
 			"script": "define-data.js"
 		},
 		{
-			"name": "Define Local Data Source (Paste .TSV)",
-			"identifier": "Define-Data-Local",
-			"script": "define-data-local.js"
-		},
-		{
-			"name": "Export Data Tokens to TSV (from Selected Artboards or Page)",
+			"name": "Export Data Tokens (from Selected Artboards or Page)",
 			"identifier": "Export-Data-Tokens",
 			"script": "export-data-tokens.js"
 		},
 		{
-			"name": "Export Specific Data Tokens Reference Sheet",
+			"name": "Export Data Tokens Reference",
 			"identifier": "Export-Data-Tokens-Reference",
 			"script": "export-data-tokens-reference.js"
 		},
 		{
-			"name": "Export All Data Tokens Reference Sheet",
+			"name": "Export All Data Tokens Reference",
 			"identifier": "Export-All-Data-Tokens-Reference",
 			"script": "export-all-data-tokens-reference.js"
 		}
@@ -50,14 +40,11 @@
 		"title": "💽 Data Tokens",
 		"items": [
 			"Import-Data-Url",
-			"Import-Data-Local",
 			"-",
 			"Define-Data",
-			"Define-Data-Local",
-			"-",
-			"Export-Data-Tokens",
-			"Export-Data-Tokens-Reference",
-			"Export-All-Data-Tokens-Reference"
+      "Export-Data-Tokens",
+	  "Export-Data-Tokens-Reference",
+	  "Export-All-Data-Tokens-Reference"
 		]
 	},
 	"name": "💽 Data Tokens",
