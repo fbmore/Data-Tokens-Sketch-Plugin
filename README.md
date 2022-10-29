@@ -1,9 +1,12 @@
 ![](/Images/Cover.png)
-# DataTokens-UI
-Apply Data Token Values to Text Layers and Symbol overrides.
+# DataTokens
+Apply Data Tokens from:
+- A public GSheet URL (.tsv)
+- Or an endpoint that returns a .tsv file
+- Paste TSV (Tab Separated Values) from Gsheet, Numbers or Excel
 
 
-## [👉 Download the latest version of the plugin here](https://github.com/fbmore/DataTokens-UI-Sketch-Plugin/raw/main/DataTokens-UI.sketchplugin.zip)
+## [👉 Download the latest version of the plugin here](https://github.com/fbmore/DataTokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip)
 
 ---
 

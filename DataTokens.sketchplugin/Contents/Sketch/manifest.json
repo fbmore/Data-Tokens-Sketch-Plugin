@@ -1,37 +1,47 @@
 {
 	"bundleVersion": 1,
-	"version": "0.0.4",
+	"version": "0.0.7",
 	"icon": "icon.png",
 	"identifier": "com.fbmore.datatokens",
-	"description": "Import Data Tokens from a public GSheet URL or endpoint that returns .tsv",
+	"description": "Import Data Tokens from a public GSheet URL or endpoint that returns a .tsv file",
 	"homepage": "",
 	"author": "Francesco Bertocci",
 	"authorEmail": "fbmore@gmail.com",
 	"compatibleVersion": 80,
 	"commands": [
 		{
-			"name": "Apply Data Tokens from URL (TSV)",
+			"name": "Apply Data Tokens from URL",
 			"identifier": "Import-Data-Url",
 			"script": "import-data-url.js",
-      "shortcut": "control shift i"
-    },
+      		"shortcut": "control shift i"
+	    },
 		{
-			"name": "Define Data Sources",
+			"name": "Apply Data Tokens from Local Data Source",
+			"identifier": "Import-Data-Local",
+			"script": "import-data-local.js"
+	    },
+		{
+			"name": "Define Remote Data Source (URL to .TSV)",
 			"identifier": "Define-Data",
 			"script": "define-data.js"
 		},
 		{
-			"name": "Export Data Tokens (from Selected Artboards or Page)",
+			"name": "Define Local Data Source (Paste .TSV)",
+			"identifier": "Define-Data-Local",
+			"script": "define-data-local.js"
+		},
+		{
+			"name": "Export Data Tokens to TSV (from Selected Artboards or Page)",
 			"identifier": "Export-Data-Tokens",
 			"script": "export-data-tokens.js"
 		},
 		{
-			"name": "Export Data Tokens Reference",
+			"name": "Export Specific Data Tokens Reference Sheet",
 			"identifier": "Export-Data-Tokens-Reference",
 			"script": "export-data-tokens-reference.js"
 		},
 		{
-			"name": "Export All Data Tokens Reference",
+			"name": "Export All Data Tokens Reference Sheet",
 			"identifier": "Export-All-Data-Tokens-Reference",
 			"script": "export-all-data-tokens-reference.js"
 		}
@@ -40,11 +50,14 @@
 		"title": "💽 Data Tokens",
 		"items": [
 			"Import-Data-Url",
+			"Import-Data-Local",
 			"-",
 			"Define-Data",
-      "Export-Data-Tokens",
-	  "Export-Data-Tokens-Reference",
-	  "Export-All-Data-Tokens-Reference"
+			"Define-Data-Local",
+			"-",
+			"Export-Data-Tokens",
+			"Export-Data-Tokens-Reference",
+			"Export-All-Data-Tokens-Reference"
 		]
 	},
 	"name": "💽 Data Tokens",
