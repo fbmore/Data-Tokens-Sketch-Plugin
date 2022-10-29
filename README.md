@@ -9,7 +9,7 @@ The plugin also allows to quickly generate:
 - TSV data (a spreadsheet) with the list of Data Token Names and corresponding values using in the designs by running the command: ”Export Data Tokens to TSV (from Selected Artboards or Page)”
 - Data Tokens Reference Sheet (It creates a new page and artboard containing all Data Tokens and all their options)
 
-## [👉 Download the latest version of the plugin here](https://github.com/fbmore/DataTokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip)
+## [👉 Download the latest version of the plugin here](https://github.com/fbmore/Data-Tokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip)
 
 ---
 
