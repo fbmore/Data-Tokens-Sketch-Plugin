@@ -1,8 +1,8 @@
 ![](/Images/Cover.png)
-# DataTokens
+# Data Tokens
 Apply Data Tokens from:
 - A public GSheet URL (.tsv)
-- Or an endpoint that returns a .tsv file
+- An endpoint that returns a .tsv file
 - Paste TSV (Tab Separated Values) from Gsheet, Numbers or Excel
 
 
