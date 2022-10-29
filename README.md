@@ -11,8 +11,11 @@ The plugin also allows to quickly generate:
 
 ## [👉 Download the latest version of the plugin here](https://github.com/fbmore/Data-Tokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip)
 
-Watch the demo:
-https://user-images.githubusercontent.com/1416981/198814799-09bac98a-abe3-42e1-ad40-ab21c88d0f79.mp4
+[Watch the demo](https://user-images.githubusercontent.com/1416981/198814799-09bac98a-abe3-42e1-ad40-ab21c88d0f79.mp4)
+
+
+
+
 
 
 ---
