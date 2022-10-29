@@ -20,7 +20,7 @@ var onRun = function(context) {
     var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
     var queryURL = Settings.documentSettingForKey(document, 'defaultData') || queryURL
 
-    //console.log(Settings.documentSettingForKey(document, 'defaultData'));
+    //// console.log(Settings.documentSettingForKey(document, 'defaultData'));
   
 
 
@@ -30,7 +30,7 @@ var onRun = function(context) {
 
         var result = queryURL
 
-        var alertTitle = "Import Data Tokens and Apply Them";
+        var alertTitle = "Import Data Tokens from URL\nand Apply Them";
         var instructionalTextForInput = "👉 Paste URL to TSV below:";
         var initialValue = queryURL;
       
@@ -48,7 +48,7 @@ var onRun = function(context) {
               // most likely the user canceled the input
               return;
             } else {
-              console.log(value);
+              // console.log(value);
               result = value;
               Settings.setDocumentSettingForKey(document, 'defaultData', result)
             }
@@ -67,7 +67,7 @@ var onRun = function(context) {
 
             /// TSV was pasted?
 
-            console.log(result);
+            // console.log(result);
 
             var goodQuotes = result.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
       
@@ -167,7 +167,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
   var responseCode = null
   var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responseCode, error)
 
-  // console.log(response)
+  // // console.log(response)
 
 
   var dataString = NSString.alloc().initWithData_encoding(response, NSUTF8StringEncoding).toString()
@@ -179,25 +179,25 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
     staticData = csvToJson(goodQuotes)
 
-    // console.log("static JSON Data - All keys")
-    // console.log(staticData)
+    // // console.log("static JSON Data - All keys")
+    // // console.log(staticData)
 
-      console.log("All keys")
+      // console.log("All keys")
       var allKeys = Object.keys(staticData[0])
-      console.log(allKeys)
+      // console.log(allKeys)
 
       allKeys.shift();
 
       /// adds ability to choose the option i.e. "English" or "Product Name"
       var language = "";
-      // console.log("language: " + language)
+      // // console.log("language: " + language)
 
       var instructionalTextForInput = "Text Layers and Overrides where the names match keys from the imported data tokens,\nwill be updated with the corresponding value.\n\nPlease choose an option to use in your designs:"
 
       var result;
 
       ui.getInputFromUser(
-        "Import & Apply Data Tokens",
+        "Import & Apply Data Tokens from URL",
         {
           description: instructionalTextForInput,
           type: ui.INPUT_TYPE.selection,
@@ -208,7 +208,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
             // most likely the user canceled the input
             return
           } else {
-            console.log(value)
+            // // console.log(value)
             language = value;
           }
         }
@@ -218,7 +218,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
      if (language != "") {
 
-     console.log("choosen language: " + language)   
+     // console.log("choosen language: " + language)   
 
 
       /////
@@ -226,28 +226,28 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       ///// var Object with one language only
       var objLanguage = "{";
 
-    //console.log(staticData)
+    //// console.log(staticData)
     for (d = 0; d < staticData.length ; d++){ 
 
       var obj2 = staticData[d];
-      console.log(obj2["Key"])
-      console.log(obj2[language])
+      // console.log(obj2["Data Token"])
+      // console.log(obj2[language])
 
-      objLanguage = objLanguage + ' "' + obj2["Key"] + '" : "' + obj2[language] +'",'
+      objLanguage = objLanguage + ' "' + obj2["Data Token"] + '" : "' + obj2[language] +'",'
 
     }
 
 
     objLanguage = objLanguage.substring(0, objLanguage.length - 1) +  " }"; 
-    console.log(objLanguage)
+    // console.log(objLanguage)
 
     var JSONobjLanguage = JSON.parse(objLanguage)
 
-    console.log("JSONobjLanguage")
+    // console.log("JSONobjLanguage")
 
     // general keys
     for (const [key, value] of Object.entries(JSONobjLanguage)) {
-      console.log(`${key}: ${value}`);
+      // console.log(`${key}: ${value}`);
       applyContentVariableValueToLayers(key,value)
     }
     
@@ -265,9 +265,9 @@ function applyContentVariableValueToLayers(key,value) {
 var textLayers = sketch.find('Text', selectedPage)
 
 for (t = 0; t < textLayers.length; t++){
-  // console.log(textLayers[t].name)
+  // // console.log(textLayers[t].name)
   if (textLayers[t].name == key){
-    //// console.log("it's a headline!")
+    //// // console.log("it's a headline!")
     if (textLayers[t].getParentArtboard().type != "SymbolMaster"){
         var layerName = textLayers[t].name;
         textLayers[t].text = textValue;
@@ -279,7 +279,7 @@ for (t = 0; t < textLayers.length; t++){
 var symbolInstances = sketch.find('SymbolInstance', selectedPage)
 
 for (t = 0; t < symbolInstances.length; t++){
-    // console.log(symbolInstances[t].overrides)
+    // // console.log(symbolInstances[t].overrides)
     var overrides = symbolInstances[t].overrides
     
     if (symbolInstances[t].getParentArtboard().type != "SymbolMaster"){
@@ -322,17 +322,17 @@ for (t = 0; t < symbolInstances.length; t++){
         //applyContentVariableValueToLayers(key.split(".")[1],value,key.split(".")[0])
         var localKey = key.split(".")[1];
         var localTextValue = textValue;
-        console.log(localTextValue)
+        // console.log(localTextValue)
         var localInstanceName = key.split(".")[0];
 
-        console.log("localKey")
-        console.log(localKey)
+        // console.log("localKey")
+        // console.log(localKey)
 
-        console.log("localTextValue")
-        console.log(localTextValue)
+        // console.log("localTextValue")
+        // console.log(localTextValue)
 
-        console.log("localInstanceName")
-        console.log(localInstanceName)
+        // console.log("localInstanceName")
+        // console.log(localInstanceName)
 
 
         /// APPLIES to ALL
@@ -361,7 +361,7 @@ for (t = 0; t < symbolInstances.length; t++){
         //   // applyImageToOverride(override,"https://images.unsplash.com/photo-1611267254323-4db7b39c732c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&w=1000&q=80")
         //   applyImageToOverride(override,localTextValue)
 
-        //   // console.log('override.affectedLayer.type == "image" --- 1')
+        //   // // console.log('override.affectedLayer.type == "image" --- 1')
         //   //   var imageurl = textValue;
         //   //   var imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
         //   //   var nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);                  
@@ -369,7 +369,7 @@ for (t = 0; t < symbolInstances.length; t++){
         // }
         
         // if (override.type == "image" && override.affectedLayer.name == localKey &&  symbolInstances[t].name == localInstanceName) { 
-        //     console.log('override.affectedLayer.type == "image" --- 2')
+        //     // console.log('override.affectedLayer.type == "image" --- 2')
         //     var imageurl = localTextValue;
         //     var imageurl_nsurl = NSURL.alloc().initWithString(imageurl);
         //     var nsimage = NSImage.alloc().initWithContentsOfURL(imageurl_nsurl);                  

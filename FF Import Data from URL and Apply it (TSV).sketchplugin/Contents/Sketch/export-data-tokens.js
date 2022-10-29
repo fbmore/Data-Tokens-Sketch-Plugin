@@ -69,7 +69,7 @@ extractDataTokensFromLayers(layers);
         var selectedLayersID = selectedPage.layers.map(layer => layer.id)
       }      
 
-      textLayersExported = "Key" + '	' + optionName; 
+      textLayersExported = "Data Token" + '	' + optionName; 
 
       
       var invertedLayers = textLayers.reverse()
@@ -115,7 +115,7 @@ extractDataTokensFromLayers(layers);
                   var name = override.affectedLayer.name
                   var value = stringWithLineBreaks(override.value)
                   
-                  console.log(name + " - " + value)
+                  // console.log(name + " - " + value)
 
                   textLayersExportedArray.push(name + divider + value)
 
@@ -124,7 +124,7 @@ extractDataTokensFromLayers(layers);
               /// Extract image
               // if (override.property === "image") {
 
-              //     console.log(override)
+              //     // console.log(override)
               
               //     var name = override.affectedLayer.name
               //     var imageName = name
@@ -132,7 +132,7 @@ extractDataTokensFromLayers(layers);
               //     var imageName = name.replace(/[^a-z0-9]/gi, '');
 
               //     var value = "http://url.to.image/"+imageName+".jpg"
-              //     console.log("image: " + name + " - " + value)
+              //     // console.log("image: " + name + " - " + value)
 
               //     textLayersExportedArray.push(name + divider + value)
 

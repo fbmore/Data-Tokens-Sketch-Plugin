@@ -180,7 +180,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
         keysToJoin.push(obj2[allKeys[k]])
       }
         
-      objFromData = objFromData + ' "' + obj2["Key"] + '" : "' + keysToJoin.join(arrayDividerString) +'",'
+      objFromData = objFromData + ' "' + obj2["Data Token"] + '" : "' + keysToJoin.join(arrayDividerString) +'",'
 
     }
 
@@ -240,7 +240,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     // Create Headers
 
     var allValues = allKeys
-    var keyLabel = "Key"
+    var keyLabel = "Data Token"
       
     /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
     createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)

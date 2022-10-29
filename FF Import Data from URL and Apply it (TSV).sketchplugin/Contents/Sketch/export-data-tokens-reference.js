@@ -20,7 +20,7 @@ var onRun = function(context) {
 
   var staticData = {"label": "Hello Francesco! 😀"}
   // var chosenOption = "Value"
-  // var keyLabel = "Key"
+  // var keyLabel = "Data Token"
 
           
 //////// from REMOTE CSV/TSV TO JSON  
@@ -34,7 +34,7 @@ var onRun = function(context) {
     var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
     var queryURL = Settings.documentSettingForKey(document, 'defaultData') || queryURL
 
-    //console.log(Settings.documentSettingForKey(document, 'defaultData'));
+    //// console.log(Settings.documentSettingForKey(document, 'defaultData'));
   
 
 
@@ -62,7 +62,7 @@ var onRun = function(context) {
               // most likely the user canceled the input
               return;
             } else {
-              console.log(value);
+              // console.log(value);
               result = value;
               Settings.setDocumentSettingForKey(document, 'defaultData', result)
             }
@@ -81,7 +81,7 @@ var onRun = function(context) {
 
             /// TSV was pasted?
 
-            console.log(result);
+            // console.log(result);
 
             var goodQuotes = result.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
       
@@ -181,7 +181,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
   var responseCode = null
   var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responseCode, error)
 
-  // console.log(response)
+  // // console.log(response)
 
 
   var dataString = NSString.alloc().initWithData_encoding(response, NSUTF8StringEncoding).toString()
@@ -193,19 +193,19 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
     staticData = csvToJson(goodQuotes)
 
-    // console.log("static JSON Data - All keys")
-    // console.log(staticData)
+    // // console.log("static JSON Data - All keys")
+    // // console.log(staticData)
 
-      console.log("All keys")
+      // console.log("All keys")
       var allKeys = Object.keys(staticData[0])
-      console.log(allKeys)
+      // console.log(allKeys)
 
       allKeys.shift(); // So the headers can be used as options in the dropdown
       
 
       /// adds ability to choose the option i.e. "English" or "Product Name"
       var language = "";
-      // console.log("language: " + language)
+      // // console.log("language: " + language)
 
       var instructionalTextForInput = "A Data Tokens reference sheet will be created in a new page.\n\nPlease choose a data source option:"
 
@@ -223,7 +223,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
             // most likely the user canceled the input
             return
           } else {
-            console.log(value)
+            // console.log(value)
             // Create new page
             result = value;
             language = value;
@@ -235,31 +235,31 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
      if (language != "") {
 
-     console.log("choosen language: " + language)   
+     // console.log("choosen language: " + language)   
 
 
     
     ///// var Object with one language only
     var objLanguage = "{";
 
-    //console.log(staticData)
+    //// console.log(staticData)
     for (d = 0; d < staticData.length ; d++){ 
 
       var obj2 = staticData[d];
-      console.log(obj2["Key"])
-      console.log(obj2[language])
+      // console.log(obj2["Data Token"])
+      // console.log(obj2[language])
 
-      objLanguage = objLanguage + ' "' + obj2["Key"] + '" : "' + obj2[language] +'",'
+      objLanguage = objLanguage + ' "' + obj2["Data Token"] + '" : "' + obj2[language] +'",'
 
     }
 
 
     objLanguage = objLanguage.substring(0, objLanguage.length - 1) +  " }"; 
-    console.log(objLanguage)
+    // console.log(objLanguage)
 
     var JSONobjLanguage = JSON.parse(objLanguage)
 
-    console.log("JSONobjLanguage")
+    // console.log("JSONobjLanguage")
 
 
     ////// new page
@@ -273,7 +273,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     newPage.selected = true;
     
     
-    console.log(page.name);
+    // console.log(page.name);
     
     var artboard = new Artboard({
       name: 'Tokens References',
@@ -315,7 +315,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     // Create Headers
 
     var chosenOption = result || "Value" 
-    var keyLabel = "Key"
+    var keyLabel = "Data Token"
 
     /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
     createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)
@@ -336,7 +336,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     //JSONobjLanguage[keyLabel] = chosenOption;
 
     for (const [key, value] of Object.entries(JSONobjLanguage)) {
-      console.log(`${key}: ${value}`);
+      // console.log(`${key}: ${value}`);
 
       exportDataTokensToReferenceSheet(key,value)
       //valuey = valuey;
@@ -348,7 +348,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 function exportDataTokensToReferenceSheet(key,value) {
 
     
-//console.log("exportDataTokensToReferenceSheet: " + key + " -- " + value)
+//// console.log("exportDataTokensToReferenceSheet: " + key + " -- " + value)
 
   
 /// Adjust to fit if parent is a group
@@ -379,9 +379,9 @@ group.adjustToFit();
 /// Create Divider 
 createDivider(group,1)
 
-console.log("prevGroupBottomEdge")
-console.log(prevGroupBottomEdge)
-console.log(group.frame.height)
+// console.log("prevGroupBottomEdge")
+// console.log(prevGroupBottomEdge)
+// console.log(group.frame.height)
 
 prevGroupBottomEdge = group.frame.y + group.frame.height + spaceBetweenRows
 
@@ -436,10 +436,10 @@ function createText(textX,textY,width,height,textValue,newPage,fontSize) {
   var textFontSize = fontSize || 12;
 
 //  var backgroundColor = layer.style.fills[0].color.slice(0,7)
-  // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
+  // // console.log("Fill:" + layer.style.fills[0].color.slice(0,7))
 var highContrastColor = "#000000"
 
-  // console.log(highContrastColor)
+  // // console.log(highContrastColor)
 
   var textColor = highContrastColor
 

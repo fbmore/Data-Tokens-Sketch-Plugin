@@ -42,7 +42,7 @@ var onRun = function(context) {
     }
   )
 
-  console.log(Settings.documentSettingForKey(document, 'defaultLocalData'));
+  // console.log(Settings.documentSettingForKey(document, 'defaultLocalData'));
 
 
   
