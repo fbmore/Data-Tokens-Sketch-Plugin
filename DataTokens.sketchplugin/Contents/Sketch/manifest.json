@@ -1,6 +1,6 @@
 {
 	"bundleVersion": 1,
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"icon": "icon.png",
 	"identifier": "com.fbmore.datatokens",
 	"appcast": "https://raw.githubusercontent.com/fbmore/Data-Tokens-Sketch-Plugin/main/appcast.xml",
@@ -22,7 +22,7 @@
 			"script": "import-data-local.js"
 	    },
 		{
-			"name": "Define Remote Data Source (URL to .TSV)",
+			"name": "Define Remote Data Source (URL to .CSV or .TSV)",
 			"identifier": "Define-Data",
 			"script": "define-data.js"
 		},

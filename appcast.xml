@@ -5,7 +5,7 @@
     <description>Apply Data Token Values to Text, Image Layers, and Symbol overrides.</description>
     <language>en</language>
     <item>
-      <title>Version 0.0.7</title>
+      <title>Version 0.0.8</title>
       <description>
         <![CDATA[
         <ul>
@@ -13,7 +13,7 @@
         </ul>
         ]]>
       </description>
-      <enclosure url="https://github.com/fbmore/Data-Tokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip" sparkle:version="0.0.7" type="application/octet-stream"/>
+      <enclosure url="https://github.com/fbmore/Data-Tokens-Sketch-Plugin/raw/main/DataTokens.sketchplugin.zip" sparkle:version="0.0.8" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>

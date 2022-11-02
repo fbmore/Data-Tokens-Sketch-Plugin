@@ -18,7 +18,7 @@ var onRun = function(context) {
     // Read Doc Settings for defined data sources
     // Example data source URL  
     var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
-    var queryURL = Settings.documentSettingForKey(document, 'defaultData') || queryURL
+    queryURL = Settings.documentSettingForKey(document, 'defaultData') || queryURL
 
     //// console.log(Settings.documentSettingForKey(document, 'defaultData'));
   
@@ -31,7 +31,7 @@ var onRun = function(context) {
         var result = queryURL
 
         var alertTitle = "Import Data Tokens from URL\nand Apply Them";
-        var instructionalTextForInput = "👉 Paste URL to TSV below:";
+        var instructionalTextForInput = "👉 Paste URL to CSV or TSV below:";
         var initialValue = queryURL;
       
         if (result === undefined){
@@ -128,6 +128,18 @@ var onRun = function(context) {
 
 /// This below uses TABS as delimiters
  function csvToJson(text, headers, quoteChar = '"', delimiter = '	') {
+
+    console.log("queryURL")
+    console.log(queryURL)
+
+    if (queryURL.includes("csv")){
+      delimiter = ','
+      console.log("Includes csv")
+    } else {
+      console.log("Does not include csv")
+    }
+
+
     const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
   
     const match = line => {
