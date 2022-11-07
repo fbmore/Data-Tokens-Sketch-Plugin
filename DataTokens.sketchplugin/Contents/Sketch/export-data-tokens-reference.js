@@ -20,7 +20,7 @@ var onRun = function(context) {
 
   var staticData = {"label": "Hello Francesco! 😀"}
   // var chosenOption = "Value"
-  // var keyLabel = "Data Token"
+  // var keyLabel = DataTokensColumnName
 
           
 //////// from REMOTE CSV/TSV TO JSON  
@@ -200,6 +200,8 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       var allKeys = Object.keys(staticData[0])
       // console.log(allKeys)
 
+      var DataTokensColumnName = allKeys[0]
+
       allKeys.shift(); // So the headers can be used as options in the dropdown
       
 
@@ -246,10 +248,10 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     for (d = 0; d < staticData.length ; d++){ 
 
       var obj2 = staticData[d];
-      // console.log(obj2["Data Token"])
+      // console.log(obj2[DataTokensColumnName])
       // console.log(obj2[language])
 
-      objLanguage = objLanguage + ' "' + obj2["Data Token"] + '" : "' + obj2[language] +'",'
+      objLanguage = objLanguage + ' "' + obj2[DataTokensColumnName] + '" : "' + obj2[language] +'",'
 
     }
 
@@ -315,7 +317,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     // Create Headers
 
     var chosenOption = result || "Value" 
-    var keyLabel = "Data Token"
+    var keyLabel = DataTokensColumnName
 
     /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
     createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)

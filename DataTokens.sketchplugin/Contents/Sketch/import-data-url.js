@@ -75,6 +75,8 @@ var onRun = function(context) {
             //var array = result.split("\n")
 
             staticData = csvToJson(goodQuotes)
+            console.log("staticData")
+            console.log(staticData)
         }
     
       
@@ -191,14 +193,26 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
     staticData = csvToJson(goodQuotes)
 
+    console.log("staticData via URL")
+    console.log(staticData)
+
+
+
     // // console.log("static JSON Data - All keys")
     // // console.log(staticData)
 
-      // console.log("All keys")
+      console.log("All keys")
       var allKeys = Object.keys(staticData[0])
-      // console.log(allKeys)
+      console.log(allKeys)
+
+      var DataTokensColumnName = allKeys[0]
+
 
       allKeys.shift();
+
+      console.log("allKeys - Shift")
+      console.log(allKeys)
+
 
       /// adds ability to choose the option i.e. "English" or "Product Name"
       var language = "";
@@ -226,40 +240,44 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
         }
       )
 
+      console.log("language chosen: " + language)
      
       
      if (language != "") {
 
-     // console.log("choosen language: " + language)   
-
-
-      /////
-
+      console.log("language chosen 2: " + language)
       ///// var Object with one language only
       var objLanguage = "{";
 
-    //// console.log(staticData)
-    for (d = 0; d < staticData.length ; d++){ 
+      console.log("staticData before FOR")
+      console.log(staticData)
+      console.log("staticData.length")
+      console.log(staticData.length)
 
-      var obj2 = staticData[d];
-      // console.log(obj2["Data Token"])
-      // console.log(obj2[language])
+      console.log("staticData 1")
+      console.log(staticData[1])
 
-      objLanguage = objLanguage + ' "' + obj2["Data Token"] + '" : "' + obj2[language] +'",'
+      for (d = 0; d < staticData.length ; d++){ 
 
-    }
+        var obj2 = staticData[d];
+        console.log(obj2[DataTokensColumnName])
+        console.log(obj2[language])
+
+        objLanguage = objLanguage + ' "' + obj2[DataTokensColumnName] + '" : "' + obj2[language] +'",'
+
+      }
 
 
     objLanguage = objLanguage.substring(0, objLanguage.length - 1) +  " }"; 
-    // console.log(objLanguage)
+    console.log(objLanguage)
 
     var JSONobjLanguage = JSON.parse(objLanguage)
 
-    // console.log("JSONobjLanguage")
+    console.log("JSONobjLanguage")
 
     // general keys
     for (const [key, value] of Object.entries(JSONobjLanguage)) {
-      // console.log(`${key}: ${value}`);
+      console.log(`${key}: ${value}`);
       applyContentVariableValueToLayers(key,value)
     }
     

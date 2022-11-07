@@ -28,7 +28,7 @@ var onRun = function(context) {
         var result = queryURL
 
         var alertTitle = "Export Data Tokens Reference Sheet";
-        var instructionalTextForInput = "👉 Paste URL to TSV below:";
+        var instructionalTextForInput = "👉 Paste URL to CSV or TSV below:";
         var initialValue = queryURL;
       
         if (result === undefined){
@@ -163,6 +163,8 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
       
     staticData = csvToJson(goodQuotes)
     var allKeys = Object.keys(staticData[0])
+
+    var DataTokensColumnName = allKeys[0]
     
     allKeys.shift(); // So the headers can be used as options in the dropdown
      
@@ -180,7 +182,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
         keysToJoin.push(obj2[allKeys[k]])
       }
         
-      objFromData = objFromData + ' "' + obj2["Data Token"] + '" : "' + keysToJoin.join(arrayDividerString) +'",'
+      objFromData = objFromData + ' "' + obj2[DataTokensColumnName] + '" : "' + keysToJoin.join(arrayDividerString) +'",'
 
     }
 
@@ -240,7 +242,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
     // Create Headers
 
     var allValues = allKeys
-    var keyLabel = "Data Token"
+    var keyLabel = DataTokensColumnName
       
     /// Create Key Text Layer (in this order so they appear in the correct place in the Layer List)
     createText(valuex,prevGroupBottomEdge-headersOffset,textWidth,textHeight,keyLabel,artboard)
@@ -265,6 +267,7 @@ function fetchValuesFromRemoteFile(queryURL,staticData) {
 
 function exportDataTokensToReferenceSheet(key,value) {
 
+console.log("key,value: " + key + "-- " + value)
 
 var textValue = key
 

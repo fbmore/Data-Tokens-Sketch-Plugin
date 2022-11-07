@@ -7,11 +7,8 @@ var onRun = function(context) {
 
   var Settings = require('sketch/settings')
 
-  // console.log(Settings.documentSettingForKey(document, 'defaultData'));
 
-  // var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv' 
-
-  //// Data from Sample GSheet / Doc
+  //// Data from Sample GSheet / Doc / 
 
   //var defaultData = ''
   var defaultData = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
@@ -23,7 +20,7 @@ var onRun = function(context) {
 
 
   var instructionalTextForInput = "Define Data Tokens for this Doc";
-  var description = "👉 Paste URL to TSV below:";
+  var description = "👉 Paste URL to CSV or TSV below:";
   var initialValue = defaultData;
 
 

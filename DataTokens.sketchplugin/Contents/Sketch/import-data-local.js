@@ -9,86 +9,22 @@ var onRun = function(context) {
   var staticData = {"label": "Hello Francesco! 😀"}
 
           
-//////// from REMOTE CSV/TSV TO JSON  
-
-// Fetch the values for a given tab within a Google Sheet (or other endpoint)
-// Return the parsed data
+//////// from LOCAL CSV/TSV TO JSON  
 
 
     // Read Doc Settings for defined data sources
-    // Example data source URL  
-    // var queryURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
+    // Example data source 
     var localData = Settings.documentSettingForKey(document, 'defaultLocalData')
 
-    //// console.log(Settings.documentSettingForKey(document, 'defaultData'));
-  
-
-
-        /// Future update: support local document as source 
-        
-        // input to paste the URL
-
-        // var result = queryURL
-
-        // var alertTitle = "Import Data Tokens and Apply Them";
-        // var instructionalTextForInput = "👉 Paste URL to TSV below:";
-        // var initialValue = queryURL;
-      
-        // if (result === undefined){
-        // //// Get user input
-        // ui.getInputFromUser(
-        //   alertTitle,
-        //   {
-        //     initialValue: initialValue,
-        //     description: instructionalTextForInput,
-        //     numberOfLines: 10
-        //   },
-        //   (err, value) => {
-        //     if (err) {
-        //       // most likely the user canceled the input
-        //       return;
-        //     } else {
-        //       // console.log(value);
-        //       result = value;
-        //       Settings.setDocumentSettingForKey(document, 'defaultData', result)
-        //     }
-        //   }
-        // );
-
-        // }
-        
-
-
-
-        // if (localData.slice(0,4) == "http"){
-        staticData = fetchValuesFromLocalData(localData);
+    staticData = fetchValuesFromLocalData(localData);
     
-        // } else {
 
-            /// TSV was pasted?
+    let json = JSON.stringify(staticData, null, 2);
 
-            // // console.log(localData);
-
-            // var goodQuotes = localData.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-      
-            // localData = goodQuotes;
-
-            // staticData = csvToJson(goodQuotes)
-        // }
-    
-      
-
-
-        ///
-
-        let json = JSON.stringify(staticData, null, 2);
-        /// 
-        // let json = JSON.stringify([data], null, 2);
-
-        if (json.length === 0) {
-            sketch.UI.message("No data found.");
-            return;
-        }
+    if (json.length === 0) {
+        sketch.UI.message("No data found.");
+        return;
+    }
 
 
   function applyImageToOverride(override,imageurl) {
@@ -127,6 +63,31 @@ var onRun = function(context) {
 
 /// This below uses TABS as delimiters
  function csvToJson(text, headers, quoteChar = '"', delimiter = '	') {
+
+    if (text.includes(delimiter)){
+
+      console.log("Data includes Tabs")
+     
+    }  
+      else {
+
+        if (text.includes(',')){
+
+          console.log("Data include Commas")
+         
+          delimiter = ','
+        }
+         else {
+          
+          console.log("Check your data source and make")
+        }
+  
+  }
+  
+ 
+
+
+
     const regex = new RegExp(`\\s*(${quoteChar})?(.*?)\\1\\s*(?:${delimiter}|$)`, 'gs');
   
     const match = line => {
@@ -151,26 +112,12 @@ var onRun = function(context) {
 
 
 
-//////// from REMOTE CSV TO JSON  
+//////// from LOCAL CSV or TSV TO JSON  
 
 function fetchValuesFromLocalData(staticData) {
 
-  // TSV is available and better for parsing - This URL is from Francesco's fbmore@gmail.com GDrive   
-
-  // var request = NSMutableURLRequest.new()
-  // request.setHTTPMethod('GET')
-  // request.setURL(NSURL.URLWithString(queryURL))
-
-
-  // var error = NSError.new()
-  // var responseCode = null
-  // var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responseCode, error)
-
-  // // console.log(response)
-
 
   var dataString = staticData;
-  // NSString.alloc().initWithData_encoding(response, NSUTF8StringEncoding).toString()
   
     //// convert TSV/CSV to JSON
 
@@ -190,6 +137,8 @@ function fetchValuesFromLocalData(staticData) {
       // console.log("All keys")
       var allKeys = Object.keys(staticData[0])
       // console.log(allKeys)
+
+      var DataTokensColumnName = allKeys[0]
 
       allKeys.shift();
 
@@ -235,10 +184,10 @@ function fetchValuesFromLocalData(staticData) {
     for (d = 0; d < staticData.length ; d++){ 
 
       var obj2 = staticData[d];
-      // console.log(obj2["Data Token"])
+      // console.log(obj2[DataTokensColumnName])
       // console.log(obj2[language])
 
-      objLanguage = objLanguage + ' "' + obj2["Data Token"] + '" : "' + obj2[language] +'",'
+      objLanguage = objLanguage + ' "' + obj2[DataTokensColumnName] + '" : "' + obj2[language] +'",'
 
     }
 

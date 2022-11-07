@@ -1,6 +1,6 @@
 {
 	"bundleVersion": 1,
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"icon": "icon.png",
 	"identifier": "com.fbmore.datatokens",
 	"appcast": "https://raw.githubusercontent.com/fbmore/Data-Tokens-Sketch-Plugin/main/appcast.xml",
@@ -27,7 +27,7 @@
 			"script": "define-data.js"
 		},
 		{
-			"name": "Define Local Data Source (Paste .TSV)",
+			"name": "Define Local Data Source (Paste .CSV or .TSV)",
 			"identifier": "Define-Data-Local",
 			"script": "define-data-local.js"
 		},
