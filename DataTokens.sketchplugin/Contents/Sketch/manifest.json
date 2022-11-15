@@ -1,6 +1,6 @@
 {
 	"bundleVersion": 1,
-	"version": "0.0.9",
+	"version": "0.9.1",
 	"icon": "icon.png",
 	"identifier": "com.fbmore.datatokens",
 	"appcast": "https://raw.githubusercontent.com/fbmore/Data-Tokens-Sketch-Plugin/main/appcast.xml",
@@ -42,6 +42,11 @@
 			"script": "export-data-tokens-reference.js"
 		},
 		{
+			"name": "Insert Data Tokens (Text Layers)",
+			"identifier": "Insert-Data-Tokens-Url",
+			"script": "insert-data-tokens-url.js"
+		},
+		{
 			"name": "Export All Data Tokens Reference Sheet",
 			"identifier": "Export-All-Data-Tokens-Reference",
 			"script": "export-all-data-tokens-reference.js"
@@ -52,6 +57,7 @@
 		"items": [
 			"Import-Data-Url",
 			"Import-Data-Local",
+			"Insert-Data-Tokens-Url",
 			"-",
 			"Define-Data",
 			"Define-Data-Local",

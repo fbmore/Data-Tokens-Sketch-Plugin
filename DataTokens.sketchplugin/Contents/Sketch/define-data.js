@@ -10,7 +10,6 @@ var onRun = function(context) {
 
   //// Data from Sample GSheet / Doc / 
 
-  //var defaultData = ''
   var defaultData = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6dDSho3VerjuZRpm2dKaVvQ0q02IZUFcBGw6E1R5gtzUgtjAtoXDaGxuvUn-n-jnFyZ9rI6bKhC54/pub?output=tsv'
 
 
@@ -48,8 +47,6 @@ var onRun = function(context) {
       }
     }
   )
-
-  // console.log(Settings.documentSettingForKey(document, 'defaultData'));
 
 };
 
